@@ -1,0 +1,17 @@
+.The recommended way to start new apps with React and Redux is by using the official Redux+JS template for Create React App,
+ which takes advantage of Redux Toolkit and React Redux's integration with React components.
+
+.create-react-app arriendo --template redux:
+
+.so no need to install redux, react-redux dependency. because above command (--template redux) add all the integration between react-redux
+.also it creates separate component for redux-store (app/store.js)
+
+
+
+.install material-ui dependency
+	.npm install @material-ui/core
+	.npm install @material-ui/icons
+
+
+.install firebase dependency
+	.npm install firebase

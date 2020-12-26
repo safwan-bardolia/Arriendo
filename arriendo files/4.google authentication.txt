@@ -1,0 +1,138 @@
+step:1:
+	create <Login> component 
+
+  return (
+    <div className="app">
+      {/* if user is present then render rest of the app otherwise display Login component */}
+      {user ?(
+        <>
+          "render rest of the app here"
+        </>  
+      ):(
+        <Login/>
+      )}
+    </div>
+  );
+
+____________________________________________________________________________________________________________________________
+
+step:2
+	now create 'userSlice'  (like slice of onion it has multiple layer, means 'userSlice' is one of the layer of our app)
+	
+	slice: 
+		means if we want to add the data into state we just push into the particular slice (by dispatching particular action)
+		& when we want to grab the data from state we just pull it out from slice (using useSelector() hook)
+
+
+import { createSlice } from '@reduxjs/toolkit';
+
+export const userSlice = createSlice({
+  name: 'user',
+  initialState: {
+    user: null,
+  },
+  // reducers changes the state of our app (means it modify the state data)
+  reducers: {
+    // means any time when we want to call this reducer we dispatch the login action i.e dispatch(login({this is payload property}))
+    login: (state, action) => {
+      state.user = action.payload;
+    },
+    // means any time when we want to call this reducer we dispatch the logout action i.e dispatch(logout()) because it does not require action.payload
+    logout: (state) => {
+      state.user = null;
+    }
+  },
+});
+
+export const { login, logout} = userSlice.actions;
+export const selectUser = (state) => state.user.user;   // 1st user is name of slice(line 4), 2nd user is actual property of state(line 6)
+export default userSlice.reducer;
+
+------------------
+
+export const selectUser = (state) => state.user.user;   // to get the data from particular slice
+
+name:'user':
+	means name of this slice (means it is available as state.user.'properties')
+	properties: all the property defined in initial state (i.e state.user.user)
+
+
+  reducers: {
+    login: (state, action) => {
+      state.user = action.payload;
+    },
+    logout: (state) => {
+      state.user = null;
+    }
+  }
+
+  reducer :
+	we know reducer takes some existing amount of data & action & depending on action it update the data
+	
+  login, logout: 
+	this are actions.
+	means any we want to call particular reducer we dispatch its corresponding action
+	ex.     login: (state, action) => {
+		      state.user = action.payload;
+    		},
+		if we want to call above reducer to change its data, we dispatch login action
+		i.e dispatch(login({this is payload property}))
+		
+
+____________________________________________________________________________________________________________________________
+
+step:3
+	how to get the data from slice layer.
+
+	import { useSelector } from 'react-redux';		// useSelector is an Hooks
+	import { selectUser } from '../features/userSlice';
+
+	const user = useSelector(selectUser);
+	
+____________________________________________________________________________________________________________________________
+
+step 4: (inside <Login/>)
+	.when user click on signIn button run the following function
+	
+
+import {auth, provider} from '../firebase'
+
+    const signIn = () => {
+        //google login functionality (remember it is listen by auth.onAuthStateChanged)
+        auth.signInWithPopup(provider)
+        .catch(err => alert(err.message))
+    }
+
+note:
+	.remember in <Login/> we are not updating state we just call 
+	"auth.signInWithPopup(provider)"
+
+	.remember when we call "auth.signInWithPopup(provider)" OR auth.signOut()
+	 it is listen by auth.onAuthStateChanged() (which we have write in App.js)
+
+____________________________________________________________________________________________________________________________
+
+step:5
+	  // to dispatch the action
+	  const dispatch = useDispatch(); 
+
+  useEffect(()=>{
+    auth.onAuthStateChanged((authUser)=>{	    // every time user-authentication status changed  listen it
+      if(authUser){
+        dispatch(login({			   // if user is present then dispatch the login action, means when we do 'auth.signIn()'
+          uid: authUser.uid,
+          photo: authUser.photoURL,
+          email: authUser.email,
+          displayName: authUser.displayName
+        }))
+      } else {
+        dispatch(logout())        		   // dispatch logout action, means when we do 'auth.signOut()'
+      }
+    })
+  },[dispatch])   // dispatch is dependency without this it will show a warning in terminal
+
+____________________________________________________________________________________________________________________________
+
+step:6
+	add logout functionlity in sidebar.js Avatar
+	 <Avatar onClick={()=>auth.signOut()} src={user.photo}/>

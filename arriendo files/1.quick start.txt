@@ -1,0 +1,44 @@
+after registering project in firebase console
+
+step:1:
+	.go to firebase current project setting.
+		.click on 'config' in "firebase sdk snippet"
+		.now copy the code & create 'firebase.js' file & paste inside it (because we need this later)
+
+
+step:2:
+	.do some clean-up work
+
+		.i.e remove App.test.js, logo.svg, setupTests.js files
+
+		.now go in src/features/counter directory, 						
+			.rename Counter.module.css to Counter.css
+			.now go in Counter.js and also change import stmt for above css file
+			.now move all the 3 files of 'counter' dir into 'features' dir & remove 'counter' dir (why? for simplicity)
+			.now change path for 'Counter' inside app/Store.js
+
+			.remember this are dummy file
+
+		.now remove everything inside App.js & App.css
+
+		.now go to index.css to get rid of extra spaces i.e *{margin:0}
+
+step:3
+	firebase configuration
+
+	0.install firebase dependency (npm install firebase)
+	1.go to 'cloud-firestore' in current project & 'create Database' in it & enable it.
+	2.now go to 'Authentication' , now select 'Google' Sign-in providers inside sign-in method
+ 
+	note: 
+		to remove problem of 30-days database expire problem,
+		change rule inside cloud-firestore
+
+
+	3.go to firebase current project setting.
+		.click on 'config' in "firebase sdk snippet"
+		.now copy the code & create 'firebase.js' file & paste inside it (because we need this)
+
+ 
+			
+		

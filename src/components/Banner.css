@@ -1,0 +1,30 @@
+.banner {
+  object-fit: contain;
+
+  /* height of banner component */
+  height: 448px;
+}
+
+.banner__content {
+  margin-left: 30px;
+  padding-top: 165px;
+}
+
+.banner__content > h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  padding-bottom: 0.3 rem;
+}
+
+.banner__content > button {
+  cursor: pointer;
+  background-color: #ff7779;
+  color: #fff;
+  text-transform: inherit;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.banner__content > button:hover {
+  background-color: #ff385c;
+}

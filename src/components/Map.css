@@ -1,0 +1,25 @@
+.map__form {
+  border-top: 1px solid #d7d7d7;
+  padding: 10px;
+}
+
+/* each field of map (city, address) */
+.map__form__field {
+  background-color: white;
+  border-bottom: 1px solid #d7d7d7;
+  border-radius: 30px;
+  margin: 10px;
+  padding: 10px;
+  width: 50%;
+}
+
+.map__form__field > input {
+  border: none;
+  outline-width: 0;
+  width: 90%;
+  margin-left: 2%;
+}
+
+/* enter location field */
+.pac-target-input {
+}

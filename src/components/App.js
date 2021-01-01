@@ -1,10 +1,13 @@
-import { Avatar } from '@material-ui/core';
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { login, logout, selectUser } from '../features/userSlice';
 import { auth } from '../firebase';
 import './App.css'
+import Banner from './Banner';
+import Hosting from './Hosting';
 import Login from './Login';
+import Nav from './Nav';
 
 const App = () => {
 
@@ -37,7 +40,22 @@ const App = () => {
             {/* if user is present then render rest of the app otherwise display login component */}
             {user? (
                 <>
-                    <Avatar onClick={()=>auth.signOut()} src={user.photo}/>
+                    <BrowserRouter>
+                        
+                        <Nav/>
+
+                        <Switch>
+
+                            <Route path="/hosting">
+                                <Hosting/>
+                            </Route>
+                            <Route path="/">
+                                <Banner/>
+                            </Route>
+
+                        </Switch>
+
+                    </BrowserRouter>
                 </>
             ):(
                 <Login/>

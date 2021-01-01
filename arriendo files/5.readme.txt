@@ -1,0 +1,9 @@
+.setup application with the help of 'quick start' files.
+
+.create google authentication (userSlice & <login/> & modify <App/>)
+
+.create <Nav/>		in navbar there is navigation to <Hosting/> & our home page
+
+.create <Hosting/>
+
+.create <Map/>

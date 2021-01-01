@@ -1,0 +1,98 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  /* flex: 0.2; */
+
+  /* stick to the top:0 when we scroll */
+  position: sticky;
+  top: 0;
+
+  /* display on top of everything */
+  z-index: 100;
+
+  background-color: white;
+  width: 100%;
+  height: 80px;
+
+  box-shadow: 0px 5px 8px -9px rgba(0, 0, 0, 0.75);
+
+  overflow-x: scroll;
+}
+
+/* hide scrollbar for chrome,safari & opera */
+.nav::-webkit-scrollbar {
+  display: none;
+}
+
+/* hide scrollbar for IE, edge & firefox */
+.nav {
+  -ms-overflow-style: none;
+  stroke-width: none;
+}
+
+.nav__icon {
+  height: 42px;
+  object-fit: contain;
+  margin-left: 20px;
+  min-width: 80px;
+  cursor: pointer;
+}
+
+.nav__middle {
+  display: flex;
+  align-items: center;
+
+  /* take majority of width & display it in center*/
+  flex: 1;
+  max-width: fit-content;
+
+  border: 1px solid lightgray;
+  border-radius: 999px;
+  padding: 10px;
+
+  min-width: 100px;
+}
+
+.nav__middle > input {
+  border: none;
+  outline-width: 0;
+  width: 250px;
+
+  color: black;
+  font-size: 14px;
+}
+
+.nav__middle__search {
+  background-color: #ff385c;
+  border-radius: 999px;
+  padding: 5px;
+}
+
+.nav__right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 25px;
+
+  /* min-width: 80px; */
+}
+
+.nav__right__host {
+  display: flex;
+  background-color: #d8d7d7;
+  border-radius: 999px;
+  padding: 10px;
+}
+
+.nav__right__host:hover {
+  cursor: pointer;
+  transition: transform 200ms ease-in;
+  transform: scale(1.1);
+}
+
+.nav__right__host > p {
+  margin-right: 10px;
+  font-weight: 400;
+}

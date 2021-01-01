@@ -1,0 +1,6 @@
+enable following api in google-console for current project
+
+.direction api
+.geocoding api
+.geolocation api
+.map javascript api

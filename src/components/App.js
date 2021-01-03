@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { login, logout, selectUser } from '../features/userSlice';
-import { auth } from '../firebase';
+import { setPositions } from '../features/positionSlice';
+import { selectUser } from '../features/userSlice';
 import './App.css'
 import Banner from './Banner';
 import Hosting from './Hosting';
@@ -17,23 +17,23 @@ const App = () => {
     // get the user data from userSlice
     const user = useSelector(selectUser);
 
+    
     useEffect(()=>{
-
-        auth.onAuthStateChanged((authUser)=>{
-            // if user is present then dipatch the login action
-            if(authUser) {
-                dispatch(login({
-                    uid: authUser.uid,
-                    photo: authUser.photoURL,
-                    email: authUser.email,
-                    displayName: authUser.displayName
-                }))
-            } else {
-                // dispatch logout action
-                dispatch(logout());
-            }
-        })
-    }, [dispatch])
+        
+        if(user != null) {
+            window.navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    dispatch(setPositions({
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    }))
+                },
+                (err) => {
+                    alert("please allow gps location or else it uses default location")
+                }
+            )            
+        }
+    }, [dispatch, user])
     
     return (
         <div className="app">

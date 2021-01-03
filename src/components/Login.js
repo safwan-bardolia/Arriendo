@@ -1,9 +1,34 @@
 import { Button } from '@material-ui/core'
-import React from 'react'
+import React,{useEffect} from 'react'
 import { auth, provider } from '../firebase'
+import { login, logout } from '../features/userSlice';
 import './Login.css'
+import { useDispatch } from 'react-redux';
 
 function Login() {
+
+    // to dispatch the action (i.e update redux-store )
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+
+        // listen to auth.signIn() & auth.signOut()   
+        // (auth.onAuthStateChanged in useEffect?? because at the start of this component we register this function)
+        auth.onAuthStateChanged((authUser)=>{
+            // if user is present then dipatch the login action
+            if(authUser) {
+                dispatch(login({
+                    uid: authUser.uid,
+                    photo: authUser.photoURL,
+                    email: authUser.email,
+                    displayName: authUser.displayName
+                }))
+            } else {
+                // dispatch logout action
+                dispatch(logout());
+            }
+        })
+    }, [dispatch])
 
     const signIn = () => {
         auth.signInWithPopup(provider)

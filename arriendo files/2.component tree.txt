@@ -1,0 +1,15 @@
+					<App/>	(in this component we get users location & get the 'user' info from slice)
+	__________________________________|___________________________________________
+       |									      |
+  (if user=null)								 (if user is present) 
+then display <login/>								   <Nav/>	(on top)
+												
+#onAuthStateChanged:								   <Banner/> (if link is '/')
+	it will handle login								
+	logout functionality							   <Hosting/> (if link is '/hosting')
+     											
+											<div class="hosting_header"/>	
+											<HostingForm/>
+											<Map/>
+
+    

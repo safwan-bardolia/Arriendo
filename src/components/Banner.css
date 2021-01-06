@@ -1,30 +1,56 @@
 .banner {
   object-fit: contain;
+  background-size: cover;
+  background: url("https://image.shutterstock.com/z/stock-photo-smartphone-application-for-online-searching-free-parking-place-on-the-map-gps-navigation-parking-709076695.jpg");
+  background-position: center center;
 
   /* height of banner component */
   height: 448px;
+
+  margin-bottom: 5px;
 }
 
 .banner__content {
-  margin-left: 30px;
+  background-color: black;
+  color: white;
+  width: 300px;
   padding-top: 165px;
+  padding-bottom: 157px;
+  padding-left: 50px;
+  padding-right: 50px;
+  /* margin-left: 30px; */
+  /* padding-top: 165px; */
 }
 
-.banner__content > h1 {
+@media screen and (max-width: 480px) {
+  .banner__content {
+    width: 100px;
+    padding-top: 112px;
+    padding-bottom: 112px;
+    padding-left: 10px;
+    padding-right: 20px;
+  }
+}
+
+/* .banner__content > h1 {
   font-size: 3rem;
   font-weight: 800;
   padding-bottom: 0.3 rem;
-}
+} */
 
 .banner__content > button {
   cursor: pointer;
   background-color: #ff7779;
   color: #fff;
   text-transform: inherit;
-  margin-top: 10px;
+  margin-top: 20px;
   font-weight: 600;
 }
 
 .banner__content > button:hover {
   background-color: #ff385c;
+}
+
+.banner__content > h5 {
+  margin-top: 10px;
 }

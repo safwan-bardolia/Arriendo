@@ -1,0 +1,16 @@
+.home {
+  background-color: white;
+}
+
+.home_section {
+  display: flex;
+  padding: 30px;
+}
+
+/* On screens that are 480px or less, display the card vertically */
+@media screen and (max-width: 480px) {
+  .home_section {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,8 +1,0 @@
-.app {
-  display: flex;
-  flex-direction: column;
-
-  /* entire background of our app */
-  background-color: #f1f1f1;
-  overflow-y: scroll;
-}

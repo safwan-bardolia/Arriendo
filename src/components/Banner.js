@@ -4,16 +4,10 @@ import "./Banner.css"
 
 function Banner() {
     return (
-        <div 
-            className="banner"
-            style={{
-                backgroundSize: "cover",
-                backgroundImage: "url('https://image.shutterstock.com/z/stock-photo-smartphone-application-for-online-searching-free-parking-place-on-the-map-gps-navigation-parking-709076695.jpg')",
-                backgroundPosition: "center center"
-            }}
-        >
+        <div className="banner">
             <div className="banner__content">
                 <h1>Rent Parking</h1>
+                <h5>park the car without any issue</h5>
                 <Button>Search Nearby</Button>
             </div>
         </div>

@@ -4,7 +4,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { setPositions } from '../features/positionSlice';
 import { selectUser } from '../features/userSlice';
 import './App.css'
-import Banner from './Banner';
+import Footer from './Footer';
+import Home from './Home';
 import Hosting from './Hosting';
 import Login from './Login';
 import Nav from './Nav';
@@ -42,6 +43,7 @@ const App = () => {
                 <>
                     <BrowserRouter>
                         
+                        {/* on top of all the pages */}
                         <Nav/>
 
                         <Switch>
@@ -50,10 +52,11 @@ const App = () => {
                                 <Hosting/>
                             </Route>
                             <Route path="/">
-                                <Banner/>
+                                <Home/>
+                                <Footer/>
                             </Route>
 
-                        </Switch>
+                        </Switch>                        
 
                     </BrowserRouter>
                 </>

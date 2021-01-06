@@ -240,8 +240,7 @@ class Map extends Component{
 								width: '100%',
 								height: '40px',
 								paddingLeft: '16px',
-								marginTop: '2px',
-								marginBottom: '500px'
+								marginTop: '2px'
 							}}
 							onPlaceSelected={ this.onPlaceSelected }
 							types={['(regions)']}

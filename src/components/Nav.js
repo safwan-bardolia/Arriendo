@@ -20,7 +20,7 @@ function Nav() {
             <img className="nav__icon" onClick={()=>history.push('/')} src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/768px-Airbnb_Logo_B%C3%A9lo.svg.png" alt=""/>
             
             <div className="nav__middle">
-                <input type="text" placeholder="start your search"/>
+                <input type="text" placeholder="search"/>
                 <Search className="nav__middle__search"/>
             </div>
             
@@ -28,14 +28,14 @@ function Nav() {
 
                 <div className="nav__right__host" onClick={()=>history.push('/hosting')}>
                     <p>Switch hosting</p>
-                    <Language/>
+                    <Language className="nav__language"/>
                 </div>
                     
-                <IconButton>
-                    <ExpandMore/>
+                <IconButton className="nav__expandmore">
+                    <ExpandMore className="nav__expandmore"/>
                 </IconButton>
                 
-                <IconButton>
+                <IconButton className="nav__avatar">
                     <Avatar src={user.photo}/>
                 </IconButton>
                 

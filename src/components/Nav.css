@@ -53,6 +53,9 @@
   padding: 10px;
 
   min-width: 100px;
+
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .nav__middle > input {
@@ -95,4 +98,59 @@
 .nav__right__host > p {
   margin-right: 10px;
   font-weight: 400;
+}
+
+@media screen and (max-width: 480px) {
+  .nav__icon {
+    margin-left: 10px;
+    width: 60px;
+  }
+
+  .nav__middle {
+    height: 23px;
+  }
+
+  .nav__middle > input {
+    width: 58px;
+  }
+
+  .nav__right {
+    margin-right: 0px;
+  }
+
+  .nav__right__host {
+    height: 23px;
+    width: 84px;
+  }
+
+  /* The old text needs to be hidden first  */
+  .nav__right__host > p {
+    visibility: hidden;
+    position: relative;
+  }
+
+  /* and a new text has to be positioned exactly where the old text was. */
+  .nav__right__host > p::after {
+    visibility: visible;
+    position: absolute;
+    content: "hosting";
+    top: -1px;
+    left: 0;
+  }
+
+  .nav__language {
+    align-self: center;
+  }
+
+  .nav__middle > input::placeholder {
+  }
+
+  /* hide expandMore icon in mobile */
+  .nav__expandmore {
+    display: none !important;
+  }
+
+  .nav__avatar {
+    padding: 10px !important;
+  }
 }

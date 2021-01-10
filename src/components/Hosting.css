@@ -1,5 +1,5 @@
 .hosting {
-  background-color: lightgray;
+  background-color: #f1f1f1;
   /* height: 100vh; */
 }
 
@@ -16,4 +16,17 @@
 
 .hosting__map {
   margin: 28px;
+}
+
+.hosting__info {
+  padding: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 480px) {
+  .hosting__info {
+    flex-direction: column;
+  }
 }

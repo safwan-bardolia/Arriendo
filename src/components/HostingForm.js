@@ -1,11 +1,15 @@
 import { Button } from '@material-ui/core';
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom';
 import hostingApi from '../api/hostingApi';
 import { selectUser } from '../features/userSlice'
 import "./HostingForm.css"
 
 function HostingForm() {
+
+        // to track the url
+        const history = useHistory();
 
         // get the userInfo from userSlice
         const user = useSelector(selectUser);
@@ -38,6 +42,9 @@ function HostingForm() {
                     .catch(err=>{
                         alert(err.message);
                     })
+
+                // after submitting form successfully move to map component
+                history.push("/hosting/map")
             }
         }
     

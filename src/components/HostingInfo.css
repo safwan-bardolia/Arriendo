@@ -1,0 +1,36 @@
+.hostingInfo {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.hostingInfo .MuiSvgIcon-root {
+  align-self: center;
+  margin-bottom: 20px;
+  color: rgb(110, 110, 218);
+}
+
+.hostingInfo > h4 {
+  font-size: 18px;
+  margin-bottom: 0.5rem;
+}
+
+.hostingInfo > p {
+  font-size: 16px;
+  color: #757575;
+}
+
+@media screen and (max-width: 480px) {
+  .hostingInfo {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid lightgray;
+  }
+
+  /* for last block do not display border */
+  .last {
+    border-bottom: none;
+  }
+}

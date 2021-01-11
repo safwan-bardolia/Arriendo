@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { CheckSharp, Lock, SupervisedUserCircle } from '@material-ui/icons';
 import HostingInfo from './HostingInfo';
+import HostMain from './HostMain';
 
 function Hosting(props) {
 
@@ -35,8 +36,12 @@ function Hosting(props) {
                         </div>
                     </Route>
 
-                    <Route path="/hosting">     
+                    <Route path="/hosting/form">     
                         <HostingForm/>
+                    </Route>
+
+                    <Route path="/hosting">
+                        <HostMain/>
                     </Route>
                 </Switch>
 

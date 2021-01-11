@@ -1,0 +1,169 @@
+.hostMain__container {
+  background-color: white;
+  padding: 28px;
+}
+
+.hostMain {
+  /* border-top: 1px solid lightgray; */
+  display: flex;
+  /* background-color: white; */
+  padding-bottom: 72px;
+
+  overflow-x: scroll;
+}
+
+/* hide scrollbar for chrome,safari & opera */
+.hostMain::-webkit-scrollbar {
+  display: none;
+}
+
+/* hide scrollbar for IE, edge & firefox */
+.hostMain {
+  -ms-overflow-style: none;
+  stroke-width: none;
+}
+
+.hostMain__left {
+  padding-left: 52px;
+  margin-right: 20px;
+  flex: 0.27;
+}
+
+@media screen and (max-width: 780px) {
+  .hostMain__left {
+    flex: 0.35;
+  }
+}
+
+.title {
+  max-width: 400px;
+  font-weight: 700;
+  font-size: 45px;
+  color: #222222;
+  line-height: 48px;
+}
+
+.info {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.hostMain__left > button {
+  cursor: pointer;
+  background-color: #bd1e59;
+  color: #fff;
+  text-transform: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 16px 32px 16px 32px;
+}
+
+.hostMain__left > button:hover {
+  background-color: #ff385c;
+}
+
+.hostMain__right {
+  display: flex;
+  margin-left: 20px;
+}
+
+.hostMain__right .card {
+  margin: 20px;
+}
+
+.hostMain__right .card > img {
+  object-fit: cover;
+  min-height: 451px;
+}
+
+@media screen and (max-width: 480px) {
+  .hostMain {
+    padding: 0;
+    padding-bottom: 20px;
+    flex-direction: column;
+    overflow-x: unset;
+  }
+
+  .hostMain__left {
+    padding-left: 15px;
+    margin-right: 0;
+  }
+
+  .hostMain__right {
+    overflow-x: scroll;
+    margin-left: 0;
+    padding-top: 12px;
+  }
+
+  /* hide scrollbar for chrome,safari & opera */
+  .hostMain__right::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* hide scrollbar for IE, edge & firefox */
+  .hostMain__right {
+    -ms-overflow-style: none;
+    stroke-width: none;
+  }
+
+  .hostMain__right .card {
+    overflow: unset;
+    margin-bottom: 30px;
+  }
+
+  .hostMain__right .card > img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+}
+
+.hostMain__bottom {
+  padding-left: 52px;
+  padding-top: 72px;
+  border-top: 1px solid lightgray;
+}
+
+.hostMain__bottom > h4 {
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.hostMain__bottom__info {
+  padding-top: 48px;
+  padding-bottom: 20px;
+  display: flex;
+  overflow-x: scroll;
+}
+
+/* hide scrollbar for chrome,safari & opera */
+.hostMain__bottom__info::-webkit-scrollbar {
+  display: none;
+}
+
+/* hide scrollbar for IE, edge & firefox */
+.hostMain__bottom__info {
+  -ms-overflow-style: none;
+  stroke-width: none;
+}
+
+.hostMain__bottom__info .card {
+  overflow: unset;
+}
+
+.hostMain__bottom__info .card > img {
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  /* min-height: 300px; */
+  /* min-width: 300px; */
+}
+
+@media screen and (max-width: 480px) {
+  .hostMain__bottom {
+    padding-left: 0;
+    padding-top: 20px;
+  }
+}

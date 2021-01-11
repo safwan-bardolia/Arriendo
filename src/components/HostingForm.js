@@ -38,13 +38,13 @@ function HostingForm() {
                     .then(res=>{
                         console.log(res);
                         alert("record successfully added")
+                        // after submitting form successfully move to map component
+                        history.push("/hosting/map")
                     })
                     .catch(err=>{
                         alert(err.message);
                     })
 
-                // after submitting form successfully move to map component
-                history.push("/hosting/map")
             }
         }
     

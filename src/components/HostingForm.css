@@ -2,3 +2,161 @@
   padding: 28px;
   border-bottom: 1px solid lightgray;
 }
+
+/* app class has only one child "app_form" */
+/* app_form has two child one is 'h1' & other is 'form' */
+/* and form has 4 child */
+
+/* app class has only one child "app_form", so apply this prop to entire  block*/
+.hostingForm {
+  padding: 28px;
+  background-color: #fff;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  /* height: 100vh; */
+  /* width: 100%; */
+  display: flex;
+
+  /* !!!! */
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+  /* background-color: #258ea6; */
+}
+
+/* app_form has two child one is 'h1' & other is 'form' */
+.hostingForm__body {
+  width: 550px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 40px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 10px 50px #555;
+}
+
+@media screen and (max-width: 480px) {
+  .hostingForm {
+    width: unset;
+    padding: 20px 10px;
+  }
+
+  .hostingForm__body {
+    width: 280px;
+    padding: 20px 10px;
+  }
+}
+
+.hostingForm__body > form {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hostingForm__body > h1 {
+  width: 100%;
+  text-align: center;
+  color: #111;
+  font-weight: lighter;
+}
+
+label {
+  font-size: 0.8em;
+  margin-bottom: 0.25em;
+  color: #222;
+  font-weight: lighter;
+}
+
+input,
+select {
+  padding: 10px 10px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #cfcfcf;
+}
+
+input::placeholder {
+  font-size: 1.2em;
+  font-weight: lighter;
+  color: #999;
+}
+
+.firstName,
+.mobile,
+.description,
+.totalVehicles,
+.fees,
+.aadharFile,
+.residentialFile,
+.parkingPhoto {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+/* .firstName {
+  margin-right: 1%;
+}
+
+.description {
+  margin-left: 1%;
+} */
+
+/* width of both firstName & description is 49% */
+/* .firstName,
+.description {
+  width: 49%;
+} */
+
+.firstName,
+.mobile,
+.description,
+.totalVehicles,
+.fees,
+.aadharFile,
+.residentialFile,
+.parkingPhoto {
+  width: 100%;
+}
+
+.createAccount {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.createAccount > button {
+  width: 100%;
+  background-color: #ff7779;
+  color: #fff;
+  border: 2px solid #fff;
+  margin-top: 1em;
+  padding: 8px 0px;
+  font-size: 1em;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  margin-bottom: 0.25em;
+}
+
+.createAccount > button:hover {
+  /* color: #519e8a; */
+  background-color: #ff385c;
+  /* border: 2px solid #519e8a; */
+}
+
+.createAccount > small {
+  color: #999;
+  font-weight: lighter;
+}
+
+input.error {
+  border: 1px solid red;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 0.75em;
+  display: relative;
+}

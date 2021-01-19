@@ -24,3 +24,22 @@
 .MuiButton-root {
   text-transform: none;
 }
+
+@media screen and (max-width: 480px) {
+  .login {
+    display: unset;
+    place-items: unset;
+  }
+  .login__logo {
+    padding-left: 45px;
+    padding-top: 88px;
+  }
+  .login__logo > img {
+    height: 90px;
+  }
+  .login > button {
+    margin-left: 122px;
+    margin-top: 140px;
+    width: 133px;
+  }
+}

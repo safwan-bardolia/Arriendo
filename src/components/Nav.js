@@ -4,6 +4,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { selectUser } from '../features/userSlice'
+import { auth } from '../firebase'
 import "./Nav.css"
 
 function Nav() {
@@ -35,7 +36,7 @@ function Nav() {
                     <ExpandMore className="nav__expandmore"/>
                 </IconButton>
                 
-                <IconButton className="nav__avatar">
+                <IconButton className="nav__avatar" onClick={()=>auth.signOut()}>
                     <Avatar src={user.photo}/>
                 </IconButton>
                 

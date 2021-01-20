@@ -29,3 +29,6 @@
 	.npm install react-google-maps
 	.npm install react-google-autocomplete
 	.npm install react-geocode
+
+.for middleware
+	.npm install redux-thunk

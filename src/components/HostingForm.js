@@ -1,8 +1,9 @@
 import { Button } from '@material-ui/core';
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 import hostingApi from '../api/hostingApi';
+import { setHostingFormData } from '../features/hostingFormSlice';
 import { selectUser } from '../features/userSlice'
 import "./HostingForm.css"
 
@@ -10,6 +11,9 @@ function HostingForm() {
 
     // to track the url
     const history = useHistory();
+
+    // to dispatch the action (i.e update redux-store)
+    const dispatch = useDispatch();
 
     // get the userInfo from userSlice
     const user = useSelector(selectUser);
@@ -97,7 +101,17 @@ function HostingForm() {
         // call formValid()
         if(formValid(formData)) {
             
-            // call the backend api here
+            // ***** add the data to reducer (dispatch the setHostingFormData action) ****
+            dispatch(setHostingFormData({
+                fullName:formData.fullName,
+                mobile:formData.mobile,
+                description:formData.description,
+                totalVehicles:formData.totalVehicles,
+                fees:formData.fees,
+                aadharFile:formData.aadharFile,
+                residentialFile:formData.residentialFile,
+                parkingPhoto:formData.parkingPhoto,          
+            }))
 
             console.log(`
             --SUBMITTING--
@@ -134,6 +148,11 @@ function HostingForm() {
                     parkingPhoto:"" 
                 }        
             }))
+
+            alert("data added successfully");
+            // after submitting form move to map component
+            history.push("/hosting/map");
+
         } else {
             console.error('FORM INVALID - DISPLAY ERROR MESSAGE');
         }

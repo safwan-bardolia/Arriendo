@@ -1,9 +1,7 @@
-import { Button } from '@material-ui/core';
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 import hostingApi from '../api/hostingApi';
-import { setHostingFormData } from '../features/hostingFormSlice';
 import { selectUser } from '../features/userSlice'
 import "./HostingForm.css"
 
@@ -12,11 +10,25 @@ function HostingForm() {
     // to track the url
     const history = useHistory();
 
-    // to dispatch the action (i.e update redux-store)
-    const dispatch = useDispatch();
-
     // get the userInfo from userSlice
     const user = useSelector(selectUser);
+
+    // at the start of this component check if the user has already submitted data or not?
+    useEffect(()=>{
+        async function checkUser() {
+            hostingApi.get(`/hostings/${user.uid}`)
+            .then(resp=>{
+                // if Hosting record with this user is present then move to next component
+                alert(`you have already submitted Hosting information: ${resp.data.fullName}`);
+                history.push("/hosting/map");
+            })
+            .catch(err=>{
+                console.log(err.message);
+            })
+        }
+
+        checkUser();
+    },[history,user.uid])
 
     // state vales
     // const [firstName, setFirstName] = useState("");
@@ -101,20 +113,10 @@ function HostingForm() {
         // call formValid()
         if(formValid(formData)) {
             
-            // ***** add the data to reducer (dispatch the setHostingFormData action) ****
-            dispatch(setHostingFormData({
-                fullName:formData.fullName,
-                mobile:formData.mobile,
-                description:formData.description,
-                totalVehicles:formData.totalVehicles,
-                fees:formData.fees,
-                aadharFile:formData.aadharFile,
-                residentialFile:formData.residentialFile,
-                parkingPhoto:formData.parkingPhoto,          
-            }))
-
             console.log(`
             --SUBMITTING--
+            uid: ${user.uid}
+            userProfileUrl: ${user.photo}
             Full NAME: ${formData.fullName}
             Mobile: ${formData.mobile}
             Description: ${formData.description}
@@ -124,6 +126,46 @@ function HostingForm() {
             Residential proof: ${formData.residentialFile}
             Parking photo: ${formData.parkingPhoto}
             `)
+
+            // ******** post the data to backend **********
+
+            const formInfo = new FormData();
+
+            formInfo.append('uid', user.uid);
+            formInfo.append('userProfileUrl',user.photo);
+            formInfo.append('fullName',formData.fullName);
+            formInfo.append('mobile',formData.mobile);
+            formInfo.append('description',formData.description);
+            formInfo.append('totalVehicles',formData.totalVehicles);
+            formInfo.append('fees',formData.fees);
+            formInfo.append('aadharFile',formData.aadharFile);
+            formInfo.append('residentialFile',formData.residentialFile);
+            formInfo.append('parkingPhoto',formData.parkingPhoto);
+
+            // **** posting to backend ****
+            hostingApi.post("/hostings", formInfo)
+            .then(res=>{
+                console.log(res);
+                alert("data added successfully");
+                history.push("/hosting/map");
+            })
+            .catch(err=>{
+                alert(err.message);
+            })
+
+            // // ***** add the data to reducer (dispatch the setHostingFormData action) ****
+            // dispatch(setHostingFormData({
+            //     uid:user.uid,
+            //     fullName:formData.fullName,
+            //     mobile:formData.mobile,
+            //     description:formData.description,
+            //     totalVehicles:formData.totalVehicles,
+            //     fees:formData.fees,
+            //     aadharFile:formData.aadharFile,
+            //     residentialFile:formData.residentialFile,
+            //     parkingPhoto:formData.parkingPhoto,          
+            // }))
+
 
     
             // clear the form
@@ -149,9 +191,9 @@ function HostingForm() {
                 }        
             }))
 
-            alert("data added successfully");
+            // alert("data added successfully");
             // after submitting form move to map component
-            history.push("/hosting/map");
+            // history.push("/hosting/map");
 
         } else {
             console.error('FORM INVALID - DISPLAY ERROR MESSAGE');

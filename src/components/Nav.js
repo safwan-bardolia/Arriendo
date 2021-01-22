@@ -32,9 +32,16 @@ function Nav() {
                     <Language className="nav__language"/>
                 </div>
                     
-                <IconButton className="nav__expandmore">
-                    <ExpandMore className="nav__expandmore"/>
-                </IconButton>
+                <div className="nav__right__dropdown">                    
+                    <IconButton className="nav__expandmore">
+                        <ExpandMore className="nav__expandmore"/>
+                    </IconButton>
+                    <div className="dropdown__content">
+                        <h6>Logout</h6>
+                        <h6>profile</h6>
+                        <h6 className="logout" onClick={()=>auth.signOut()}>Logout</h6>
+                    </div>
+                </div>    
                 
                 <IconButton className="nav__avatar" onClick={()=>auth.signOut()}>
                     <Avatar src={user.photo}/>

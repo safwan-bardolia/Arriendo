@@ -37,8 +37,8 @@ function Nav() {
                         <ExpandMore className="nav__expandmore"/>
                     </IconButton>
                     <div className="dropdown__content">
-                        <h6>Logout</h6>
-                        <h6>profile</h6>
+                        <h6>abc</h6>
+                        <h6 onClick={()=>history.push("/profile")}>profile</h6>
                         <h6 className="logout" onClick={()=>auth.signOut()}>Logout</h6>
                     </div>
                 </div>    

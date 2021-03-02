@@ -5,7 +5,7 @@ import hostingApi from '../api/hostingApi';
 import { selectUser } from '../features/userSlice'
 import "./HostingForm.css"
 
-function HostingForm() {
+function HostingForm({update,hostingData}) {
 
     // to track the url
     const history = useHistory();
@@ -15,20 +15,24 @@ function HostingForm() {
 
     // at the start of this component check if the user has already submitted data or not?
     useEffect(()=>{
-        async function checkUser() {
-            hostingApi.get(`/hostings/${user.uid}`)
-            .then(resp=>{
-                // if Hosting record with this user is present then move to next component
-                alert(`you have already submitted Hosting information: ${resp.data.fullName}`);
-                history.push("/hosting/map");
-            })
-            .catch(err=>{
-                console.log(err.message);
-            })
+        // do not check in case of update
+        if(!update) {
+            async function checkUser() {
+                hostingApi.get(`/hostings/${user.uid}`)
+                .then(resp=>{
+                    // if Hosting record with this user is present then move to next component
+                    console.log(resp);
+                    alert(`you have already submitted Hosting information: ${resp.data.fullName}`);
+                    history.push("/hosting/map");
+                })
+                .catch(err=>{
+                    console.log(err.message);
+                })
+            }
+    
+            checkUser();    
         }
-
-        checkUser();
-    },[history,user.uid])
+    },[history,user.uid,update])
 
     // state vales
     // const [firstName, setFirstName] = useState("");
@@ -38,11 +42,12 @@ function HostingForm() {
     // const [formErrors, setFormErrors] = useState();
 
     const [formData, setFormData] = useState({
-        fullName:"",
-        mobile:"",
-        description:"",
-        totalVehicles:1,
-        fees:20,
+        // initialize form data in case of update
+        fullName:`${update? hostingData.fullName:""}`,
+        mobile:`${update? hostingData.mobile:""}`,
+        description:`${update? hostingData.description:""}`,
+        totalVehicles:`${update? hostingData.totalVehicles:1}`,
+        fees:`${update? hostingData.fees:20}`,
         aadharFile:null,
         residentialFile:null,
         parkingPhoto:null,  
@@ -143,58 +148,29 @@ function HostingForm() {
             formInfo.append('parkingPhoto',formData.parkingPhoto);
 
             // **** posting to backend ****
-            hostingApi.post("/hostings", formInfo)
-            .then(res=>{
-                console.log(res);
-                alert("data added successfully");
-                history.push("/hosting/map");
-            })
-            .catch(err=>{
-                alert(err.message);
-            })
+            if(!update) {
+                hostingApi.post("/hostings", formInfo)
+                .then(res=>{
+                    console.log(res);
+                    alert("data added successfully");
+                    history.push("/hosting/map");
+                })
+                .catch(err=>{
+                    alert(err.message);
+                })
+            } else {
+                hostingApi.put("/hostings", formInfo) 
+                .then(res=>{
+                    console.log(res);
+                    alert("data updated successfully");
+                    // again call the HostingFormProfile comp to show updation
+                    history.push("/profile");
+                })
+            }
 
-            // // ***** add the data to reducer (dispatch the setHostingFormData action) ****
-            // dispatch(setHostingFormData({
-            //     uid:user.uid,
-            //     fullName:formData.fullName,
-            //     mobile:formData.mobile,
-            //     description:formData.description,
-            //     totalVehicles:formData.totalVehicles,
-            //     fees:formData.fees,
-            //     aadharFile:formData.aadharFile,
-            //     residentialFile:formData.residentialFile,
-            //     parkingPhoto:formData.parkingPhoto,          
-            // }))
 
 
     
-            // clear the form
-            setFormData((prevState) => ({
-                ...prevState,
-                fullName:"",
-                mobile:"",
-                description:"",
-                totalVehicles:1,
-                fees:20,
-                aadharFile:null,
-                residentialFile:null,
-                parkingPhoto:null,  
-                formErrors:{
-                    fullName:"",
-                    mobile:"",
-                    description:"",
-                    totalVehicles:"",
-                    fees:"", 
-                    aadharFile:"",
-                    residentialFile:"",
-                    parkingPhoto:"" 
-                }        
-            }))
-
-            // alert("data added successfully");
-            // after submitting form move to map component
-            // history.push("/hosting/map");
-
         } else {
             console.error('FORM INVALID - DISPLAY ERROR MESSAGE');
         }
@@ -274,7 +250,7 @@ function HostingForm() {
             
             <div className="hostingForm__body">
                 
-                <h1>Hosting Info</h1>
+                <h1>{update?'My profile':'Hosting Info'}</h1>
                 
                 {/*noValidate: it specifies that the form-data (input) should not be validated when submitted. */}
                 {/* If we enable HTML5 validations, we have little control of the look and feel of error messages */}

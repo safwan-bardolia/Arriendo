@@ -1,15 +1,59 @@
 					<App/>	(in this component we get users location & get the 'user' info from slice)
 	__________________________________|___________________________________________
        |									      |
-  (if user=null)								 (if user is present) 
-then display <login/>								   <Nav/>	(on top)
-												
-#onAuthStateChanged:								   <Banner/> (if link is '/')
-	it will handle login								
-	logout functionality							   <Hosting/> (if link is '/hosting')
-     											
-											<div class="hosting_header"/>	
-											<HostingForm/>
-											<Map/>
+  (if user is present) 								(if user=null)
+  										then display <login/>
+ <Nav/>	(on top)
+	
+ (if link is '/')											
+ 	<Home/> 
+  		<Banner/>
 
-    
+		<div className="home_section">
+			<Card/>
+			<Card/>
+			<Card/>
+
+		<div className="home_section">  
+			<Card/>
+			<Card/>
+			<Card/>
+ 	<Footer/>		
+		
+ (if link is '/hosting')						   
+ 	<Hosting/> 
+     									
+		<div class="hosting_header"/>	(on top)
+
+		(if link is '/hosting')
+			<HostMain/>
+				
+				<div className="hostMain">
+					
+					<div className="hostMain__left">
+					
+					<div className="hostMain__right">
+						<card/> (multiple)		
+
+				<div className="hostMain__bottom">
+					
+					<h4/>
+					
+					<div className="hostMain__bottom__info">
+						<card/> (multiple)	
+
+		(if link is '/hosting/form')
+			<HostingForm/>
+			"at the start of this component check if the user has already submitted data or not?"
+			"if Hosting record with current user is present then move to Map component"
+
+		(if link is '/hosting/map')
+			<Map/>				
+
+		<div className="hosting__info">  (on bottom)  
+			<HostingInfo/>
+			<HostingInfo/>
+			<HostingInfo/>
+
+		<Footer/>			(on bottom)
+								   

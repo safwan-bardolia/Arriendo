@@ -27,7 +27,7 @@ function Nav() {
             
             <div className="nav__right">
 
-                <div className="nav__right__host" onClick={()=>history.push('/hosting')}>
+                <div className="nav__right__host" onClick={()=>history.push('/hosting/main')}>
                     <p>Switch hosting</p>
                     <Language className="nav__language"/>
                 </div>
@@ -37,7 +37,7 @@ function Nav() {
                         <ExpandMore className="nav__expandmore"/>
                     </IconButton>
                     <div className="dropdown__content">
-                        <h6>abc</h6>
+                        <h6 onClick={()=>history.push("/mapprofile")}>hosting location</h6>
                         <h6 onClick={()=>history.push("/profile")}>profile</h6>
                         <h6 className="logout" onClick={()=>auth.signOut()}>Logout</h6>
                     </div>

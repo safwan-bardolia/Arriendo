@@ -6,10 +6,13 @@ import { selectUser } from '../features/userSlice';
 import './App.css'
 import Footer from './Footer';
 import Home from './Home';
-import Hosting from './Hosting';
-import HostingFormProfile from './HostingFormProfile';
+import HostingForm from './HostingForm';
+import HostingProfile from './HostingProfile';
+import HostMain from './HostMain';
 import Login from './Login';
 import Nav from './Nav';
+import Map from "./Map"
+import ProfileMap from './ProfileMap';
 
 const App = () => {
 
@@ -49,13 +52,25 @@ const App = () => {
 
                         <Switch>
 
-                            <Route path="/profile">
-                                <HostingFormProfile/>
-                                <Footer/>
+                            <Route exact path="/hosting/main">
+                                <HostMain/>
                             </Route>
 
-                            <Route path="/hosting">
-                                <Hosting/>
+                            <Route path="/hosting/form">
+                                <HostingForm/>
+                            </Route>
+
+                            <Route exact path="/hosting/map">
+                                <Map/>
+                            </Route>
+
+                            <Route exact path="/profile">
+                                <HostingProfile/>
+                                {/* <Footer/> */}
+                            </Route>
+
+                            <Route exact path="/mapprofile">
+                                <ProfileMap/>
                             </Route>
                             
                             <Route path="/">

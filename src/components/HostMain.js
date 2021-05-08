@@ -1,7 +1,10 @@
 import { Button } from '@material-ui/core'
+import { CheckSharp, Lock, SupervisedUserCircle } from '@material-ui/icons';
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import Card from './Card';
+import Footer from './Footer';
+import HostingInfo from './HostingInfo';
 import "./HostMain.css"
 
 function HostMain() {
@@ -10,9 +13,16 @@ function HostMain() {
     const history = useHistory();
 
     return (
+			<div>
+				<div className="hosting__header">
+						<h1>Become a Host</h1>
+						<p>Let's earn you money by renting out your parking area</p>
+				</div>
         <div className="hostMain__container">
 
+
             <div className="hostMain">
+
                 
                 <div className="hostMain__left">
                     <div className="title">
@@ -96,6 +106,27 @@ function HostMain() {
             </div>
 
         </div>
+				<div className="hosting__info">
+					<HostingInfo
+							Icon={SupervisedUserCircle} 
+							title="Trust & Safety"
+							info="Trust & safety tools help you accept a booking only if you’re 100% comfortable."
+					/>
+					<HostingInfo 
+							Icon={CheckSharp} 
+							title="Host Guarantee"
+							info="Your peace of mind is priceless. So we don’t charge for it. Every eligible booking on Makent is covered by our Host Guarantee - at no additional cost to you."
+					/>
+					<HostingInfo
+							Icon={Lock} 
+							title="Secure payments"
+							info="Our fast, flexible payment system puts money in your bank account after guests check out."
+							last="last"
+					/>
+        </div>
+        <Footer/>
+
+			</div>	
     )
 }
 

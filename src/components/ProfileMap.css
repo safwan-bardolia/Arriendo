@@ -1,0 +1,106 @@
+.profilemap {
+  /* padding-top: 64px; */
+  padding-top: 10px;
+}
+
+.profilemap__top {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  /* padding: 0px; */
+  border-bottom: 1px solid lightgray;
+}
+
+.profilemap__topleft {
+  padding: 32px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.profilemap__topleft > h1 {
+  margin: 0px !important;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+    Helvetica Neue, sans-serif !important;
+  color: #484848 !important;
+  font-size: 32px !important;
+  font-weight: 800 !important;
+  line-height: 1.125em !important;
+}
+
+.profilemap__topleft > h4 {
+  margin-top: 8px;
+  margin-bottom: 16px;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+    Helvetica Neue, sans-serif !important;
+  color: #484848 !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 1.375em !important;
+}
+
+.profilemap__top > button {
+  /* margin: 32px; */
+  margin: 5px 32px 5px 32px;
+  /* width: 20px; */
+  cursor: pointer;
+  background-color: #bd1e59;
+  color: #fff;
+  text-transform: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 16px 32px 16px 32px;
+}
+
+@media screen and (max-width: 480px) {
+  .profilemap__top {
+    padding: none;
+  }
+
+  .profilemap__topleft {
+    padding: 30px 6px 10px 6px;
+  }
+
+  .profilemap__top > button {
+    margin: 12px;
+    font-size: unset;
+  }
+}
+
+.not__register__top {
+  text-align: center;
+  padding: 4rem;
+}
+
+.not__register__top > h4 {
+  font-size: 30px;
+  font-weight: 600;
+  padding-bottom: 18px;
+  color: #bd1e59;
+}
+
+.not__register__top > button {
+  width: 200px;
+  cursor: pointer;
+  background-color: #bd1e59;
+  color: #fff;
+  text-transform: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 16px 32px 16px 32px;
+}
+
+.not__register__top > button:hover,
+.profilemap__top > button:hover {
+  background-color: #ff385c;
+}
+
+.hosting__info {
+  margin-top: 30px;
+  background-color: #f1f1f1;
+}

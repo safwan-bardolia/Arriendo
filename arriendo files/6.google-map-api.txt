@@ -1,6 +1,9 @@
 enable following api in google-console for current project
 
-.direction api
-.geocoding api
-.geolocation api
-.map javascript api
+.direction api - direction between multiple locations
+
+.geocoding api - convert betweend addresses & geogrophic coordinates
+
+.geolocation api - location data from cell towers and wifi nodes
+
+.map javascript api - maps for our website

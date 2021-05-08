@@ -1,294 +1,201 @@
-import React, { Component } from 'react';
-import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker } from "react-google-maps";
-import Geocode from "react-geocode";
-import Autocomplete from 'react-google-autocomplete';
-import "./Map.css";
+import React, { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux';
+import './Map.css'
 
-Geocode.setApiKey("AIzaSyBE-E5zl5ohmEuJeVwtzq_uPQr5XYuMfpg");
-Geocode.enableDebug();
+import mapboxgl from 'mapbox-gl/dist/mapbox-gl-csp';
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
+import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import { selectLat, selectLng } from '../features/positionSlice';
+import { selectUser } from '../features/userSlice';
+import hostingLocationApi from '../api/hostingLocationApi';
+import { useHistory } from 'react-router';
+import hostingApi from '../api/hostingApi';
 
-class Map extends Component{
+mapboxgl.workerClass = MapboxWorker;
+mapboxgl.accessToken = 'pk.eyJ1Ijoic2Fmd2FuLWJhcmRvbGlhIiwiYSI6ImNrb2IwaXI5MzAzYnkydm4xZWg4eDFkbmoifQ.2JbbEHLeVd5Y1BcuVHAyyQ';
 
-	constructor( props ){
-		super( props );
-		this.state = {
-			address: '',
-			city: '',
-			area: '',
-			state: '',
-			mapPosition: {
-				lat: this.props.center.lat,
-				lng: this.props.center.lng
-			},
-			markerPosition: {
-				lat: this.props.center.lat,
-				lng: this.props.center.lng
+function Map() {
+
+    const mapContainer = useRef();
+
+		// to track the url
+		const history = useHistory();
+
+    // get the userinfo from userSlice
+    const user = useSelector(selectUser);
+
+    // get the coordinates from positionSlice
+    // const latitude = useSelector(selectLat);
+    // const longitude = useSelector(selectLng);
+
+    // create state for lat & lng (because in this component lat & lng will change frequently. e.g as marker move)
+    // get default value from slice
+    const [lat,setLat] = useState(useSelector(selectLat));
+    const [lng,setLng] = useState(useSelector(selectLng));
+    const [zoom, setZoom] = useState(9);
+
+    // update when we get new users location (using gps)
+    const [renderMap, setRenderMap] = useState(false);	
+
+    useEffect(()=>{
+
+			// first check if the current user has submitted hosting info or not?
+			// this is useful when user direct backdoor to the 'hosting/map' url
+			async function checkHosting() {
+				hostingApi.get(`/hostings/${user.uid}`)
+				.then(resp=>{
+					console.log(resp)
+				})
+				.catch(err=>{
+					console.log(err)
+					// if hosting data is not submitted then send user back to hostingForm
+					alert(`you have not submitted hosting info. first fill the hosting form`);
+					history.push('/hosting/form');
+				})
 			}
-		}
-	}
-	/**
-	 * Get the current address from the default map position and set those values in the state
-	 */
-	componentDidMount() {
-		Geocode.fromLatLng( this.state.mapPosition.lat , this.state.mapPosition.lng ).then(
-			response => {
-				const address = response.results[0].formatted_address,
-				      addressArray =  response.results[0].address_components,
-				      city = this.getCity( addressArray ),
-				      area = this.getArea( addressArray ),
-				      state = this.getState( addressArray );
 
-				console.log( 'city', city, area, state );
+			checkHosting();
 
-				this.setState( {
-					address: ( address ) ? address : '',
-					area: ( area ) ? area : '',
-					city: ( city ) ? city : '',
-					state: ( state ) ? state : '',
-				} )
-			},
-			error => {
-				console.error( error );
+			// check if user has already submitted location or not?
+			async function checkLocation() {
+				hostingLocationApi.get(`/hostinglocations/${user.uid}`)
+				.then(resp=>{
+					console.log(resp);
+					// if location is already been submitted by this user then move to next component
+					alert(`you have already add the location , try to update it ${resp.data.fullName}`);
+					history.push("/mapprofile")
+				})
+				.catch(err=>{
+					console.log(err);
+				})
 			}
-		);
-	};
-	/**
-	 * Component should only update ( meaning re-render ), when the user selects the address, or drags the pin
-	 *
-	 * @param nextProps
-	 * @param nextState
-	 * @return {boolean}
-	 */
-	shouldComponentUpdate( nextProps, nextState ){
-		if (
-			this.state.markerPosition.lat !== this.props.center.lat ||
-			this.state.address !== nextState.address ||
-			this.state.city !== nextState.city ||
-			this.state.area !== nextState.area ||
-			this.state.state !== nextState.state
-		) {
-			return true
-		} else if ( this.props.center.lat === nextProps.center.lat ){
-			return false
-		}
-	}
-	/**
-	 * Get the city and set the city input value to the one selected
-	 *
-	 * @param addressArray
-	 * @return {string}
-	 */
-	getCity = ( addressArray ) => {
-		let city = '';
-		for( let i = 0; i < addressArray.length; i++ ) {
-			if ( addressArray[ i ].types[0] && 'administrative_area_level_2' === addressArray[ i ].types[0] ) {
-				city = addressArray[ i ].long_name;
-				return city;
+
+			checkLocation();
+
+			// this function causes this component to render 2 times(because of setRenderMap())
+      // // get user's location
+      // window.navigator.geolocation.getCurrentPosition(
+			// 	(position) => (
+			// 		console.log(position.coords),
+			// 		setLat(position.coords.latitude.toFixed(4)),
+			// 		setLng(position.coords.longitude.toFixed(4)),
+					
+			// 		// without this center is not updated
+			// 		setRenderMap(true)
+			// 	),
+			// 	(err) => (
+			// 		console.log("error in getting location")
+			// 	)
+    	// )
+
+
+			// initialize the map
+			const map = new mapboxgl.Map({
+					container: mapContainer.current,
+					style: 'mapbox://styles/mapbox/streets-v11',
+					center: [lng, lat],
+					zoom: zoom
+			});
+
+			// add marker for default location
+			const marker = new mapboxgl.Marker({
+					draggable: true
+			})
+			.setLngLat([lng,lat])
+			.addTo(map);
+
+			// add draggable functionality
+			marker.on('drag',()=>{
+					const coordinates = marker.getLngLat();
+					// updating co-ordinates on dragging
+					setLat(coordinates.lat.toFixed(4));
+					setLng(coordinates.lng.toFixed(4));
+			})
+
+			// to search places in map (after search center will be resultant lat & lng )
+			const geocoder = new MapboxGeocoder({
+					accessToken: mapboxgl.accessToken,
+					mapboxgl: mapboxgl,
+					// not to display new marker
+					marker: false
+			});
+
+			map.addControl(geocoder,'top-left')
+
+			geocoder.on('result',(e)=>{
+				console.log(e.result);
+
+				// update lat & lng
+				setLng(e.result.center[0]);
+				setLat(e.result.center[1]);
+
+				// remove the old marker
+				marker.remove();
+				
+				// re-add the new marker
+				const marker1 = new mapboxgl.Marker({
+						draggable: true
+				})
+				.setLngLat(e.result.center)
+				.addTo(map);	
+
+				marker1.on('drag',()=>{
+						const coordinates = marker1.getLngLat();
+						// updating co-ordinates on dragging
+						setLat(coordinates.lat.toFixed(4));
+						setLng(coordinates.lng.toFixed(4));
+				})
+
+			})
+
+        // unmounting
+        return () => map.remove();
+
+    },[renderMap])
+
+		const handleSubmit = (e) => {
+			e.preventDefault();
+			
+			// ******** post the data to backend **********
+			const formInfo = new FormData();
+			formInfo.append('uid',user.uid);
+			formInfo.append('email',user.email);
+			formInfo.append('fullName',user.displayName);
+			formInfo.append('latitude',lat);
+			formInfo.append('longitude',lng);
+
+			if(window.confirm("are you sure that this is your confirm hosting location?")) {
+				// **** posting to backend ****
+				hostingLocationApi.post('/hostinglocations', formInfo)
+				.then(res=>{
+					console.log(res);
+					alert("location successfully added");
+					history.push("/profile")
+				})
+				.catch(err=>{
+					alert(err.message)
+				})
 			}
+
 		}
-	};
-	/**
-	 * Get the area and set the area input value to the one selected
-	 *
-	 * @param addressArray
-	 * @return {string}
-	 */
-	getArea = ( addressArray ) => {
-		let area = '';
-		for( let i = 0; i < addressArray.length; i++ ) {
-			if ( addressArray[ i ].types[0]  ) {
-				for ( let j = 0; j < addressArray[ i ].types.length; j++ ) {
-					if ( 'sublocality_level_1' === addressArray[ i ].types[j] || 'locality' === addressArray[ i ].types[j] ) {
-						area = addressArray[ i ].long_name;
-						return area;
-					}
-				}
-			}
-		}
-	};
-	/**
-	 * Get the address and set the address input value to the one selected
-	 *
-	 * @param addressArray
-	 * @return {string}
-	 */
-	getState = ( addressArray ) => {
-		let state = '';
-		for( let i = 0; i < addressArray.length; i++ ) {
-			for( let i = 0; i < addressArray.length; i++ ) {
-				if ( addressArray[ i ].types[0] && 'administrative_area_level_1' === addressArray[ i ].types[0] ) {
-					state = addressArray[ i ].long_name;
-					return state;
-				}
-			}
-		}
-	};
-	/**
-	 * And function for city,state and address input
-	 * @param event
-	 */
-	onChange = ( event ) => {
-		this.setState({ [event.target.name]: event.target.value });
-	};
-	/**
-	 * This Event triggers when the marker window is closed
-	 *
-	 * @param event
-	 */
-	onInfoWindowClose = ( event ) => {
 
-	};
-
-	/**
-	 * When the marker is dragged you get the lat and long using the functions available from event object.
-	 * Use geocode to get the address, city, area and state from the lat and lng positions.
-	 * And then set those values in the state.
-	 *
-	 * @param event
-	 */
-	onMarkerDragEnd = ( event ) => {
-		let newLat = event.latLng.lat(),
-		    newLng = event.latLng.lng();
-
-		Geocode.fromLatLng( newLat , newLng ).then(
-			response => {
-				const address = response.results[0].formatted_address,
-				      addressArray =  response.results[0].address_components,
-				      city = this.getCity( addressArray ),
-				      area = this.getArea( addressArray ),
-				      state = this.getState( addressArray );
-				this.setState( {
-					address: ( address ) ? address : '',
-					area: ( area ) ? area : '',
-					city: ( city ) ? city : '',
-					state: ( state ) ? state : '',
-					markerPosition: {
-						lat: newLat,
-						lng: newLng
-					},
-					mapPosition: {
-						lat: newLat,
-						lng: newLng
-					},
-				} )
-			},
-			error => {
-				console.error(error);
-			}
-		);
-	};
-
-	/**
-	 * When the user types an address in the search box
-	 * @param place
-	 */
-	onPlaceSelected = ( place ) => {
-		console.log( 'plc', place );
-		const address = place.formatted_address,
-		      addressArray =  place.address_components,
-		      city = this.getCity( addressArray ),
-		      area = this.getArea( addressArray ),
-		      state = this.getState( addressArray ),
-		      latValue = place.geometry.location.lat(),
-		      lngValue = place.geometry.location.lng();
-		// Set these values in the state.
-		this.setState({
-			address: ( address ) ? address : '',
-			area: ( area ) ? area : '',
-			city: ( city ) ? city : '',
-			state: ( state ) ? state : '',
-			markerPosition: {
-				lat: latValue,
-				lng: lngValue
-			},
-			mapPosition: {
-				lat: latValue,
-				lng: lngValue
-			},
-		})
-	};
-
-
-	render(){
-		const AsyncMap = withScriptjs(
-			withGoogleMap(
-				props => (
-					<GoogleMap google={ this.props.google }
-					           defaultZoom={ this.props.zoom }
-					           defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
-					>
-						{/* InfoWindow on top of marker */}
-						<InfoWindow
-							onClose={this.onInfoWindowClose}
-							position={{ lat: ( this.state.markerPosition.lat + 0.0018 ), lng: this.state.markerPosition.lng }}
-						>
-							<div>
-								<span style={{ padding: 0, margin: 0 }}>{ this.state.address }</span>
-							</div>
-						</InfoWindow>
-						{/*Marker*/}
-						<Marker google={this.props.google}
-						        name={'Dolores park'}
-						        draggable={true}
-						        onDragEnd={ this.onMarkerDragEnd }
-						        position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
-						/>
-						<Marker />
-						{/* For Auto complete Search Box */}
-						<Autocomplete
-							style={{
-								width: '100%',
-								height: '40px',
-								paddingLeft: '16px',
-								marginTop: '2px',
-								marginBottom: '190px'
-							}}
-							onPlaceSelected={ this.onPlaceSelected }
-							types={['(regions)']}
-						/>
-					</GoogleMap>
-				)
-			)
-		);
-		let map;
-		if( this.props.center.lat !== undefined ) {
-			map = <div>
-				<div className="map__form">
-					<div className="map__form__field">
-						<label htmlFor="">City</label>
-						<input type="text" name="city"  onChange={ this.onChange } readOnly="readOnly" value={ this.state.city }/>
-					</div>
-					<div className="map__form__field">
-						<label htmlFor="">Area</label>
-						<input type="text" name="area"  onChange={ this.onChange } readOnly="readOnly" value={ this.state.area }/>
-					</div>
-					<div className="map__form__field">
-						<label htmlFor="">State</label>
-						<input type="text" name="state"  onChange={ this.onChange } readOnly="readOnly" value={ this.state.state }/>
-					</div>
-					<div className="map__form__field">
-						<label htmlFor="">Address</label>
-						<input type="text" name="address"  onChange={ this.onChange } readOnly="readOnly" value={ this.state.address }/>
-					</div>
-				</div>
-
-				<AsyncMap
-					googleMapURL={"https://maps.googleapis.com/maps/api/js?key=AIzaSyBE-E5zl5ohmEuJeVwtzq_uPQr5XYuMfpg&libraries=places"}
-					loadingElement={
-						<div style={{ height: `100%` }} />
-					}
-					containerElement={
-						<div style={{ height: this.props.height }} />
-					}
-					mapElement={
-						<div style={{ height: `100%` }} />
-					}
-				/>
-			</div>
-		} else {
-			map = <div style={{height: this.props.height}} />
-		}
-		return( map )
-	}
+    return (
+        <div className="map">
+						<div className="map__header">
+							move marker to select your confirm location<br/>
+							or<br/>
+							search a place to confirm your location
+						</div>
+            <div className="map__sidebar">
+                Latitude: {lat} | Longitude: {lng} | Zoom: {zoom}
+            </div>
+            <div className="map__container" ref={mapContainer}/>
+						<form onSubmit={handleSubmit} noValidate>
+							<button className="map__button" type="submit">submit location</button>
+						</form>
+        </div>
+    )
 }
+
 export default Map

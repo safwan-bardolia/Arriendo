@@ -2,13 +2,13 @@ import firebase from 'firebase'
 
 // config from firebase-console
 const firebaseConfig = {
-    apiKey: "AIzaSyCDj2tfjz0EQv1HvU0OzfBufkKKRYFNs9g",
-    authDomain: "arriendo-5fcf6.firebaseapp.com",
-    projectId: "arriendo-5fcf6",
-    storageBucket: "arriendo-5fcf6.appspot.com",
-    messagingSenderId: "438021251342",
-    appId: "1:438021251342:web:3bd7bc3b86fec16036375f",
-    measurementId: "G-3CJFSRGJ41"
+  apiKey: "AIzaSyATkOIB4HUnvOPvIDBqU1TrbvdtO1Y9HFw",
+  authDomain: "arriendo-39bd3.firebaseapp.com",
+  projectId: "arriendo-39bd3",
+  storageBucket: "arriendo-39bd3.appspot.com",
+  messagingSenderId: "101957066058",
+  appId: "1:101957066058:web:b785e80bc328b3d62f75b3",
+  measurementId: "G-NE0D1TCHWM"
 };
 
 // initialize our app with firebase config (connect our app with firebase)

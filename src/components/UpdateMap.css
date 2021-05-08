@@ -1,32 +1,32 @@
-.map__container {
+.updateMap__container {
   position: absolute;
-  top: 150px;
+  top: 207px;
   bottom: 0;
   right: 0;
   left: 0;
   margin-bottom: 100px;
 }
 
-.map__sidebar {
+.updateMap__sidebar {
   background-color: rgba(35, 55, 75, 0.9);
   color: #ffffff;
   padding: 6px 12px;
   font: 15px/24px monospace;
   z-index: 1;
   position: absolute;
-  top: 150px;
+  top: 207px;
   right: 0;
   margin: 12px;
   border-radius: 4px;
 }
 
-.map__header {
-  /* padding: 5px; */
+/* .updateMap__header {
+  padding: 5px;
   text-align: center;
   font-weight: 500;
-}
+} */
 
-.map > form {
+.updateMap > form {
   width: 100%;
   text-align: center !important;
   position: absolute;
@@ -34,7 +34,7 @@
   margin-bottom: 30px;
 }
 
-.map__button {
+.updateMap__button {
   cursor: pointer;
   background-color: #1f7dff;
   color: #ffffff;
@@ -47,12 +47,12 @@
   padding: 10px 22px;
 }
 
-.map__button:hover {
+.updateMap__button:hover {
   background-color: #0066ec;
 }
 
 @media screen and (max-width: 480px) {
-  .map__sidebar {
+  .updateMap__sidebar {
     top: unset;
     bottom: 0;
     margin-bottom: 100px;

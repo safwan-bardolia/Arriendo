@@ -1,11 +1,14 @@
+import { CheckSharp, Lock, SupervisedUserCircle } from '@material-ui/icons';
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 import hostingApi from '../api/hostingApi';
 import { selectUser } from '../features/userSlice'
+import Footer from './Footer';
 import "./HostingForm.css"
+import HostingInfo from './HostingInfo';
 
-function HostingForm({update,hostingData}) {
+function HostingForm({update,hostingData,setRerender}) {
 
     // to track the url
     const history = useHistory();
@@ -121,6 +124,7 @@ function HostingForm({update,hostingData}) {
             console.log(`
             --SUBMITTING--
             uid: ${user.uid}
+            email: ${user.email}
             userProfileUrl: ${user.photo}
             Full NAME: ${formData.fullName}
             Mobile: ${formData.mobile}
@@ -137,6 +141,7 @@ function HostingForm({update,hostingData}) {
             const formInfo = new FormData();
 
             formInfo.append('uid', user.uid);
+            formInfo.append('email', user.email)
             formInfo.append('userProfileUrl',user.photo);
             formInfo.append('fullName',formData.fullName);
             formInfo.append('mobile',formData.mobile);
@@ -164,7 +169,13 @@ function HostingForm({update,hostingData}) {
                     console.log(res);
                     alert("data updated successfully");
                     // again call the HostingFormProfile comp to show updation
-                    history.push("/profile");
+                    // history.push("/profile");
+
+                    // this will re-render its parent component
+                    setRerender(true);
+                })
+                .catch(err=>{
+                    alert(err.message);
                 })
             }
 
@@ -245,6 +256,11 @@ function HostingForm({update,hostingData}) {
     const {formErrors} = formData;
 
     return (
+			<div>
+				<div className="hosting__header">
+						<h1>Become a Host</h1>
+						<p>Let's earn you money by renting out your parking area</p>
+				</div>
 
         <div className="hostingForm">
             
@@ -396,8 +412,8 @@ function HostingForm({update,hostingData}) {
                     </div>
 
                     <div className="createAccount">
-                        <button type="submit">Move to next step</button>
-                        <small>you are just 3 steps away from making your own profit</small>
+                        <button type="submit">{update? 'Update' : 'Move to next step'}</button>
+                        <small>{update? 'update your Hosting profile': 'you are just 3 steps away from making your own profit'}</small>
                     </div>
 
                 </form>
@@ -405,6 +421,27 @@ function HostingForm({update,hostingData}) {
             </div>
 
         </div>
+				<div className="hosting__info">
+					<HostingInfo
+							Icon={SupervisedUserCircle} 
+							title="Trust & Safety"
+							info="Trust & safety tools help you accept a booking only if you’re 100% comfortable."
+					/>
+					<HostingInfo 
+							Icon={CheckSharp} 
+							title="Host Guarantee"
+							info="Your peace of mind is priceless. So we don’t charge for it. Every eligible booking on Makent is covered by our Host Guarantee - at no additional cost to you."
+					/>
+					<HostingInfo
+							Icon={Lock} 
+							title="Secure payments"
+							info="Our fast, flexible payment system puts money in your bank account after guests check out."
+							last="last"
+					/>
+        </div>
+        <Footer/>
+
+			</div>	
     )
 }
 

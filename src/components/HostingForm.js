@@ -51,6 +51,10 @@ function HostingForm({update,hostingData,setRerender}) {
         description:`${update? hostingData.description:""}`,
         totalVehicles:`${update? hostingData.totalVehicles:1}`,
         fees:`${update? hostingData.fees:20}`,
+        country:`${update? hostingData.country:""}`,
+        state:`${update? hostingData.state:""}`,
+        city:`${update? hostingData.city:""}`,
+        address:`${update? hostingData.address:""}`,
         aadharFile:null,
         residentialFile:null,
         parkingPhoto:null,  
@@ -60,6 +64,10 @@ function HostingForm({update,hostingData,setRerender}) {
             description:"",
             totalVehicles:"",
             fees:"", 
+            country:"",
+            state:"",
+            city:"",
+            address:"",
             aadharFile:"" ,
             residentialFile:"",
             parkingPhoto:"",
@@ -129,6 +137,10 @@ function HostingForm({update,hostingData,setRerender}) {
             Full NAME: ${formData.fullName}
             Mobile: ${formData.mobile}
             Description: ${formData.description}
+            Country: ${formData.country}
+            State: ${formData.state}
+            City: ${formData.city}
+            Address: ${formData.address}
             Total Vehicles: ${formData.totalVehicles}
             Fees: ${formData.fees}
             Aadhar: ${formData.aadharFile}
@@ -146,6 +158,10 @@ function HostingForm({update,hostingData,setRerender}) {
             formInfo.append('fullName',formData.fullName);
             formInfo.append('mobile',formData.mobile);
             formInfo.append('description',formData.description);
+            formInfo.append('country',formData.country);
+            formInfo.append('state',formData.state);
+            formInfo.append('city',formData.city);
+            formInfo.append('address',formData.address);
             formInfo.append('totalVehicles',formData.totalVehicles);
             formInfo.append('fees',formData.fees);
             formInfo.append('aadharFile',formData.aadharFile);
@@ -210,7 +226,23 @@ function HostingForm({update,hostingData,setRerender}) {
             case 'description':
               formErrors.description = value.length < 6 ? "minimum 6 characters required, description" : "";
               break;      
-      
+
+            case 'country':
+              formErrors.country = value.length < 3 ? "not a valid country" : "";
+              break;      
+
+            case 'state':
+              formErrors.state = value.length < 3 ? "not a valid state" : "";
+              break;      
+    
+            case 'city':
+              formErrors.city = value.length < 3 ? "not a valid city" : "";
+              break;      
+             
+            case 'address':
+              formErrors.address = value.length < 6 ? "minimum 6 characters required, address" : "";
+              break;                      
+              
             case 'aadharFile':
               // if file is present then e.target.files.length is 1
               console.log(e.target.files);
@@ -367,6 +399,70 @@ function HostingForm({update,hostingData,setRerender}) {
                         {/* { formErrors.fees.length > 0 && (
                             <span className="errorMessage">{formErrors.fees}</span>
                         )} */}
+                    </div>
+
+                    <div className="country">
+                        <label htmlFor="country">Country</label>
+                        <input 
+                            type="text"
+                            className={formErrors.country.length > 0 ? "error":null}
+                            placeholder="India, USA"
+                            name="country"
+                            value={formData.country}
+                            onChange={handleChange}
+                        />
+                        {/* displaying error msg */}
+                        { formErrors.country.length > 0 && (
+                            <span className="errorMessage">{formErrors.country}</span>
+                        )}
+                    </div>
+
+                    <div className="state">
+                        <label htmlFor="state">State</label>
+                        <input 
+                            type="text"
+                            className={formErrors.state.length > 0 ? "error":null}
+                            placeholder="Maharashtra, Gujrat"
+                            name="state"
+                            value={formData.state}
+                            onChange={handleChange}
+                        />
+                        {/* displaying error msg */}
+                        { formErrors.state.length > 0 && (
+                            <span className="errorMessage">{formErrors.state}</span>
+                        )}
+                    </div>
+
+                    <div className="city">
+                        <label htmlFor="city">City</label>
+                        <input 
+                            type="text"
+                            className={formErrors.city.length > 0 ? "error":null}
+                            placeholder="Pune, Mumbai"
+                            name="city"
+                            value={formData.city}
+                            onChange={handleChange}
+                        />
+                        {/* displaying error msg */}
+                        { formErrors.city.length > 0 && (
+                            <span className="errorMessage">{formErrors.city}</span>
+                        )}
+                    </div>
+
+                    <div className="address">
+                        <label htmlFor="address">Address</label>
+                        <input 
+                            type="text"
+                            className={formErrors.address.length > 0 ? "error":null}
+                            placeholder="Pune Road, Shivaji Nagar"
+                            name="address"
+                            value={formData.address}
+                            onChange={handleChange}
+                        />
+                        {/* displaying error msg */}
+                        { formErrors.address.length > 0 && (
+                            <span className="errorMessage">{formErrors.address}</span>
+                        )}
                     </div>
 
                     <div className="aadharFile">

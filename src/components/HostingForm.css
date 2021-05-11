@@ -98,6 +98,10 @@ input::placeholder {
 .description,
 .totalVehicles,
 .fees,
+.country,
+.state,
+.city,
+.address,
 .aadharFile,
 .residentialFile,
 .parkingPhoto {
@@ -125,6 +129,10 @@ input::placeholder {
 .description,
 .totalVehicles,
 .fees,
+.country,
+.state,
+.city,
+.address,
 .aadharFile,
 .residentialFile,
 .parkingPhoto {

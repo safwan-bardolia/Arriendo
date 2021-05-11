@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import hostingApi from '../api/hostingApi';
 import { selectUser } from '../features/userSlice';
-import { AttachMoney, Call, CheckSharp, Info, LocalParking, Lock, Person, SupervisedUserCircle } from '@material-ui/icons';
+import { AttachMoney, Call, CheckSharp, Flag, Home, Info, LocalParking, LocationCity, Lock, Person, SupervisedUserCircle } from '@material-ui/icons';
 import HostingInfo from './HostingInfo';
 import "./HostingProfile.css"
 import HostingForm from './HostingForm';
@@ -145,6 +145,22 @@ function HostingProfile() {
                         <div className="hostingFormProfile__mid__info">
                             <Info/>
                             <h4>{hostingData.description}</h4>
+                        </div>
+                        <div className="hostingFormProfile__mid__info">
+                            <Flag/>
+                            <h4>{hostingData.country}</h4>
+                        </div>
+                        <div className="hostingFormProfile__mid__info">
+                            <Info/>
+                            <h4>{hostingData.state}</h4>
+                        </div>
+                        <div className="hostingFormProfile__mid__info">
+                            <LocationCity/>
+                            <h4>{hostingData.city}</h4>
+                        </div>
+                        <div className="hostingFormProfile__mid__info">
+                            <Home/>
+                            <h4>{hostingData.address}</h4>
                         </div>
                         {/* <div className="hostingFormProfile__mid__info file">
                             <FileCopy/>

@@ -64,8 +64,10 @@
   }
 
   .profilemap__top > button {
-    margin: 12px;
-    font-size: unset;
+    margin: 26px;
+    margin-right: 5px;
+    font-size: 16px;
+    padding: unset;
   }
 }
 

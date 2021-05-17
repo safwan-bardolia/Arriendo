@@ -21,7 +21,7 @@ function UpdateMap({locationData}) {
 
   const [lat,setLat] = useState(locationData.latitude);
   const [lng,setLng] = useState(locationData.longitude);
-  const [zoom, setZoom] = useState(9);
+  const [zoom, setZoom] = useState(15);
 
   useEffect(()=>{
     // initialize the map

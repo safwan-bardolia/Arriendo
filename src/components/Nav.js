@@ -22,7 +22,7 @@ function Nav() {
             
             <div className="nav__middle">
                 <input type="text" placeholder="search"/>
-                <Search className="nav__middle__search"/>
+                <Search className="nav__middle__search" onClick={()=>history.push('/nearbyLocation')}/>
             </div>
             
             <div className="nav__right">

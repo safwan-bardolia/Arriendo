@@ -71,6 +71,12 @@
   background-color: #ff385c;
   border-radius: 999px;
   padding: 5px;
+  cursor: pointer;
+}
+
+.nav__middle__search:hover {
+  transition: transform 100ms ease-in;
+  transform: scale(1.2);
 }
 
 .nav__right {

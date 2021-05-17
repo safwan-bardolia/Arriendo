@@ -1,0 +1,296 @@
+.nearbyLocation {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  color: #404040;
+  font: 400 15px/22px "Source Sans Pro", "Helvetica Neue", Sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* h1 {
+  font-size: 22px;
+  margin: 0;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 20px 2px;
+}
+
+a {
+  color: #404040;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #101010;
+} */
+
+.nearbyLocation__sidebar {
+  position: absolute;
+  width: 33.3333%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  /* overflow: hidden; */
+  overflow: scroll;
+  border-right: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.nearbyLocation__map {
+  position: absolute;
+  left: 33.5%;
+  width: 66.6666%;
+  top: 80px;
+  bottom: 0;
+}
+
+.nearbyLocation__heading {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  height: 80px;
+  line-height: 60px;
+  padding: 0 10px;
+  background-color: #00853e;
+  color: #fff;
+}
+
+.listings {
+  height: 100%;
+  /* overflow: auto; */
+  padding-bottom: 60px;
+}
+
+.listings .item {
+  display: block;
+  /* border-bottom: 1px solid #eee; */
+  padding: 10px;
+  text-decoration: none;
+}
+
+.listings .item:last-child {
+  border-bottom: none;
+}
+
+.listings .item .title {
+}
+
+.listings .item .title small {
+  font-weight: 400;
+}
+
+/* .listings .item.active .title,
+.listings .item .title:hover {
+  color: #8cc63f;
+} */
+
+.listings .item.active {
+  /* background-color: #0d0d0c; */
+  /* color: white; */
+  background-color: #ebebe5;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  border-left: 0;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00853e;
+  border-radius: 0;
+}
+
+.clearfix {
+  display: block;
+}
+
+.clearfix::after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+/* Marker tweaks */
+.mapboxgl-popup-close-button {
+  display: none;
+}
+
+.mapboxgl-popup-content {
+  /* font: 400 15px/22px "Source Sans Pro", "Helvetica Neue", Sans-serif; */
+  padding: 0;
+  width: 260px;
+  border-radius: 18px;
+  cursor: pointer;
+}
+
+.mapboxgl-popup-content-wrapper {
+  padding: 1%;
+}
+
+.mapboxgl-container .leaflet-marker-icon {
+  cursor: pointer;
+}
+
+.mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
+  margin-top: 15px;
+  border-radius: 18px;
+}
+
+.mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
+  border-bottom-color: #91c949;
+}
+
+.marker {
+  border: none;
+  cursor: pointer;
+  height: 56px;
+  width: 56px;
+  background-image: url(https://docs.mapbox.com/help/demos/building-a-store-locator/marker.png);
+  /* background-image: url(../images/download.png); */
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.mapboxgl-popup {
+  padding-bottom: 50px;
+}
+
+.listings .item {
+  display: flex !important;
+  position: relative;
+  margin: 5px;
+  padding: 5px;
+  /* border-bottom: 1px solid lightgray; */
+  cursor: pointer;
+  overflow-x: scroll;
+}
+
+/* .listings .item:hover {
+  background-color: #ebebe5;
+} */
+
+.listings .item > img {
+  height: 150px;
+  width: 182px;
+  border-radius: 10px;
+  /* overflow: hidden; */
+}
+
+.listing__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 10px;
+}
+
+.listing__infoTop {
+  /* width: 20vw; */
+}
+
+.listings .item .title {
+  margin-top: 5px;
+  font-weight: 300;
+  font-size: 1.17em;
+  /* remove underline */
+  text-decoration: none;
+}
+
+.listing__infoTop > p {
+  margin-top: 5px;
+  font-size: 13px;
+  color: grey;
+}
+
+.listing__infoBottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mapcard > img {
+  /* border-radius: 10px; */
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  width: 260px;
+  height: 160px;
+  object-fit: fill;
+}
+
+.mapcard__info {
+  padding: 16px;
+}
+
+.mapboxgl-popup-content h3 {
+  /* background: #fff;
+  color: black;
+  margin: 0;
+  display: block;
+  padding: 10px;
+  border-radius: 3px 3px 0 0;
+  font-weight: 300;
+  margin-top: -15px; */
+  font-weight: 300;
+  margin-top: 5px;
+}
+
+.mapboxgl-popup-content h2 {
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.nearbyLocation__button {
+  display: none;
+}
+
+@media screen and (max-width: 1100px) {
+  .nearbyLocation__button {
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    width: 79px;
+    flex: 100;
+    bottom: 40px;
+    left: 40%;
+    right: 40%;
+    border-radius: 22px;
+    padding: 11px 19px;
+    cursor: pointer;
+  }
+
+  .nearbyLocation__button:hover {
+    background-color: #2b2929;
+  }
+
+  .nearbyLocation__button > h4 {
+    margin-right: 8px;
+  }
+
+  .hide {
+    display: none;
+  }
+  .show {
+    /* for map */
+    left: unset;
+
+    width: 100%;
+    /* height: 100%; */
+  }
+
+  .mapcard__info {
+    padding: 5px 16px;
+  }
+
+  .mapcard > img {
+    height: 130px;
+  }
+}

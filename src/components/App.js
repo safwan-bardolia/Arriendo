@@ -13,6 +13,7 @@ import Login from './Login';
 import Nav from './Nav';
 import Map from "./Map"
 import ProfileMap from './ProfileMap';
+import NearbyLocation from './NearbyLocation';
 
 const App = () => {
 
@@ -51,6 +52,10 @@ const App = () => {
                         <Nav/>
 
                         <Switch>
+
+                            <Route exact path="/nearbyLocation">
+                                <NearbyLocation/>
+                            </Route>
 
                             <Route exact path="/hosting/main">
                                 <HostMain/>

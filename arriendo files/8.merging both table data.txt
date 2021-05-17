@@ -1,0 +1,91 @@
+var hostings = [
+{
+"uid": "7BIgQ8XMZsd3U7XoP7GWUNQO7uS2",
+"email": "safvanbardolia@gmail.com",
+"userProfileUrl": "https://lh3.googleusercontent.com/a/AATXAJyhR2HzAUOSf4DFth8bAaJSVJGFMTotqzoOrVaIfA=s96-c",
+"fullName": "safwan bardolia",
+"mobile": "9689697084",
+"description": "CCTV included",
+"country": "India",
+"state": "maharahtra",
+"city": "Nashik",
+"address": "dwarka, mumbai naka nashik",
+"totalVehicles": 1,
+"fees": 20,
+"aadharFile": null,
+"aadharFileUri": "file:///C:/STS/Arriendo/uploads/Safwan-Last.pdf",
+"residentialFile": null,
+"residentialFileUri": "file:///C:/STS/Arriendo/uploads/safwan-Resume%20-%20Copy.docx",
+"parkingPhoto": null,
+"parkingPhotoUri": "file:///C:/STS/Arriendo/uploads/Safwan.pdf"
+},
+{
+"uid": "LA8kGs4k6Fd7qm7b5eKe1uVs5gM2",
+"email": "safwanb.comp_ioe@bkc.met.edu",
+"userProfileUrl": "https://lh3.googleusercontent.com/a/AATXAJzMnPASVP4REC_OOeuTCA4EGPpVz6hwtxkAL6M1=s96-c",
+"fullName": "priyanka",
+"mobile": "8999174725",
+"description": "CCTV  & watchman included ",
+"country": "India",
+"state": "maharahtra",
+"city": "nashik",
+"address": "Walkhardt hospital, nashik",
+"totalVehicles": 1,
+"fees": 20,
+"aadharFile": null,
+"aadharFileUri": "file:///C:/STS/Arriendo/uploads/safwan-Resume%20-%20Copy.docx",
+"residentialFile": null,
+"residentialFileUri": "file:///C:/STS/Arriendo/uploads/Safwan.pdf",
+"parkingPhoto": null,
+"parkingPhotoUri": "file:///C:/STS/Arriendo/uploads/Safwan-Last.pdf"
+},
+{
+"uid": "123",
+"email": "abc@bkc.met.edu",
+"userProfileUrl": "https://lh3.googleusercontent.com/a/AATXAJzMnPASVP4REC_OOeuTCA4EGPpVz6hwtxkAL6M1=s96-c",
+"fullName": "abc",
+"mobile": "123",
+"description": "CCTV  & watchman included ",
+"country": "India",
+"state": "maharahtra",
+"city": "nashik",
+"address": "Walkhardt hospital, nashik",
+"totalVehicles": 1,
+"fees": 20,
+"aadharFile": null,
+"aadharFileUri": "file:///C:/STS/Arriendo/uploads/safwan-Resume%20-%20Copy.docx",
+"residentialFile": null,
+"residentialFileUri": "file:///C:/STS/Arriendo/uploads/Safwan.pdf",
+"parkingPhoto": null,
+"parkingPhotoUri": "file:///C:/STS/Arriendo/uploads/Safwan-Last.pdf"
+}
+]
+
+var locations = [
+{
+"uid": "7BIgQ8XMZsd3U7XoP7GWUNQO7uS2",
+"latitude": 19.990583,
+"longitude": 73.807115,
+"fullName": "Safwan Bardolia",
+"email": "safvanbardolia@gmail.com"
+},
+{
+"uid": "LA8kGs4k6Fd7qm7b5eKe1uVs5gM2",
+"latitude": 19.992036,
+"longitude": 73.790104,
+"fullName": "44 Safwan Bardolia",
+"email": "safwanb.comp_ioe@bkc.met.edu"
+}
+]
+
+
+hostings.forEach((hosting)=>{
+	locations.forEach((location)=>{
+  	if(hosting.uid==location.uid) {
+    	location.userProfileUrl=hosting.userProfileUrl;
+      location.mobile=hosting.mobile;
+    }
+  })
+})
+
+console.log(locations)

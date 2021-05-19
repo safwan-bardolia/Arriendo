@@ -10,6 +10,8 @@ import hostingApi from '../api/hostingApi';
 import hostingLocationApi from '../api/hostingLocationApi';
 import { useSelector } from 'react-redux';
 import { selectLat, selectLng } from '../features/positionSlice';
+import Booking from './Booking';
+import { useHistory } from 'react-router';
 
 if (!('remove' in Element.prototype)) {
   Element.prototype.remove = function() {
@@ -23,6 +25,8 @@ mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2Fmd2FuLWJhcmRvbGlhIiwiYSI6ImNrb2IwaXI5MzAzYnkydm4xZWg4eDFkbmoifQ.2JbbEHLeVd5Y1BcuVHAyyQ';
 
 function NearbyLocation() {
+
+  const history = useHistory();
 
   const[hostingData,setHostingData] = useState([]);
   const[locationData,setLocationData] = useState([]);
@@ -50,7 +54,7 @@ function NearbyLocation() {
     // merge location data into var
     // because we perform mutation on independent-state variable
     finalMergedData.push(...locationData);
-    console.log(finalMergedData[0])
+    // console.log(finalMergedData[0])
 
     // step 2
     // do the final merge, 
@@ -78,7 +82,7 @@ function NearbyLocation() {
       
     }
 
-    console.log(finalMergedData[0])
+    // console.log(finalMergedData[0])
 
   }
 
@@ -248,8 +252,8 @@ function NearbyLocation() {
             // title.innerHTML = prop.address
 
             /* Add the link to the individual listing created above. */
-            var link = listing__infoTop.appendChild(document.createElement('a'));
-            link.href = '#';
+            var link = listing__infoTop.appendChild(document.createElement('h4'));
+            // link.href = '';
             link.className = 'title';
             link.id = 'link-' + prop.uid;
             link.innerHTML = prop.address;
@@ -320,8 +324,16 @@ function NearbyLocation() {
         });
 
         // move to booking when user click on sidebar-listing-record
-        listing.addEventListener('click',()=>{
-          console.log("click on map1")
+        listing.addEventListener('click',function(e){
+          for (var i = 0; i < geojson.features.length; i++) {
+            if (this.id === 'listing-' + geojson.features[i].properties.uid) {
+              var clickedListing = geojson.features[i];
+              history.push({
+                pathname: '/booking',
+                hostingInfo: clickedListing
+              })
+            }
+          }
         })
 
 
@@ -360,7 +372,10 @@ function NearbyLocation() {
       // move to booking when user click on mapcard
       var mapcard = document.getElementById("mapcard");
       mapcard.addEventListener('click',()=>{
-        console.log("click on map")
+        history.push({
+          pathname: '/booking',
+          hostingInfo: currentFeature
+        })
       })
 
     }
@@ -391,7 +406,7 @@ function NearbyLocation() {
       jsonToGeojson();
     }  
 
-    console.log(geojson)
+    // console.log(geojson)
     
     if(geojson.length!==0) {
       loadMap();

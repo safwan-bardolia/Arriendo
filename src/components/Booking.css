@@ -1,0 +1,352 @@
+.booking__backdoor {
+  text-align: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 6rem;
+}
+
+.booking__backdoor > h4 {
+  font-weight: 600;
+  font-size: 30px;
+  padding-bottom: 18px;
+  color: #bd1e59;
+}
+
+.booking__backdoor > button {
+  width: 200px;
+  cursor: pointer;
+  background-color: #bd1e59;
+  color: #fff;
+  text-transform: inherit;
+  font-size: 18px;
+  font-weight: 600px;
+  border-radius: 8px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 16px 32px 16px 32px;
+}
+
+.booking__backdoor > button:hover {
+  background-color: #ff385c;
+}
+
+.booking__header {
+  padding-top: 24px;
+  padding-left: 80px;
+  padding-right: 80px;
+  margin-left: 115px;
+  margin-right: 115px;
+  text-align: center;
+}
+
+.booking__header > h1 {
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-align: start;
+  text-transform: capitalize;
+}
+
+.booking__header__info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.booking__header__info__left {
+  display: flex;
+}
+
+.booking__header__info__rating {
+  display: flex;
+  align-items: center;
+}
+
+.booking__header__info__left > h4 {
+  margin-left: 12px;
+  text-transform: capitalize;
+  font-weight: 400;
+}
+
+.booking__header__info__right {
+  display: flex;
+  align-items: center;
+}
+
+.booking__header__info__right > .MuiSvgIcon-root {
+  margin-right: 10px;
+}
+
+.booking__img__card {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+  margin-left: 195px;
+  margin-right: 195px;
+}
+
+.booking__img__card > img {
+  display: block;
+  /* margin-top: 24px;
+  margin-left: 195px;
+  margin-right: auto; */
+  width: 50%;
+  border-radius: 13px;
+  /* object-fit: contain; */
+}
+
+.booking__paymentcard {
+  border-radius: 10px;
+  padding: 24px;
+  width: 200px;
+  box-shadow: 0px 6px 18px -9px rgba(0, 0, 0, 0.75);
+}
+
+.booking__paymentcard > h4 {
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 26px;
+}
+
+.booking__paymentcard__date {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid; */
+  /* border-radius: 10px; */
+  margin-top: 10px;
+}
+
+.booking__paymentcard__checkIntime {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid; */
+  /* border-radius: 10px; */
+  margin-top: 10px;
+}
+
+.booking__paymentcard__checkouttime {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid; */
+  /* border-radius: 10px; */
+  margin-top: 10px;
+}
+
+.booking__paymentcard__date > h4 {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.booking__paymentcard__checkIntime > h4 {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.booking__paymentcard__checkouttime > h4 {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.booking__paymentcard__date > input {
+  /* border: none; */
+  width: 160px;
+}
+
+.booking__paymentcard__checkIntime > input {
+  /* border: none; */
+  width: 160px;
+}
+
+.booking__paymentcard__checkouttime > input {
+  /* border: none; */
+  width: 160px;
+}
+
+.booking__paymentcard > button {
+  cursor: pointer;
+  background-color: #bd1e59;
+  color: #fff;
+  text-transform: inherit;
+  /* font-size: 18px; */
+  font-weight: 600;
+  border-radius: 8px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 8px 16px;
+  margin-top: 8px;
+  width: 185px;
+}
+
+.booking__paymentcard > button:hover {
+  background-color: #ff385c;
+}
+
+.booking__hosting {
+  /* display: flex; */
+  /* justify-content: space-between; */
+  margin-left: 195px;
+  margin-right: 195px;
+  /* margin-bottom: 8px; */
+  padding-top: 48px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid gray;
+}
+
+.booking__info {
+  margin-left: 195px;
+  margin-right: 195px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  border-bottom: 2px solid gray;
+}
+
+.booking__description {
+  display: flex;
+  align-items: center;
+  margin-left: 195px;
+  margin-right: 195px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid gray;
+}
+
+.booking__hosting > h5 {
+  font-weight: 400;
+  font-size: 15px;
+  display: flex;
+}
+
+.booking__hosting__left {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.booking__hosting__left > h4 {
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 26px;
+  text-transform: inherit;
+}
+
+.booking__info__item {
+  margin-bottom: 24px;
+  display: flex;
+}
+
+.booking__info__item__detail {
+  margin-left: 14px;
+}
+
+.booking__info__item__detail > h3 {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.booking__info__item__detail > p {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.booking__description > p {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  margin-left: 14px;
+}
+
+@media screen and (min-width: 780px) {
+  .booking__hosting__left {
+    justify-content: unset;
+  }
+
+  .booking__hosting__left > .MuiAvatar-root {
+    margin-left: 200px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .booking__hosting {
+    padding-top: 15px;
+    margin-left: 15px !important;
+    margin-right: 15px !important;
+  }
+  .booking__description {
+    margin-left: 15px !important;
+    margin-right: 15px !important;
+  }
+  .booking__info {
+    margin-left: 15px !important;
+    margin-right: 15px !important;
+  }
+  .booking__img__card {
+    flex-direction: column;
+    margin-left: 8px !important;
+    margin-right: 8px !important;
+  }
+  .booking__img__card > img {
+    width: unset;
+  }
+  .booking__paymentcard {
+    width: 310px !important;
+    margin-top: 15px;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    /* display: none; */
+  }
+  .booking__paymentcard__input {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .booking__paymentcard__date > input {
+    width: 130px;
+  }
+  .booking__paymentcard__checkIntime > input {
+    width: 130px;
+  }
+  .booking__paymentcard__checkouttime > input {
+    width: 130px;
+  }
+  .booking__paymentcard > button {
+    width: 130px;
+  }
+  .booking__header {
+    padding-left: unset;
+    padding-right: unset;
+    margin-left: 15px !important;
+    margin-right: 15px !important;
+  }
+  .booking__header__info__right > .MuiSvgIcon-root {
+    margin-right: 0px;
+    margin-left: 10px;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .booking__hosting {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+  .booking__description {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+  .booking__info {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+  .booking__img__card {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+  .booking__paymentcard {
+    /* width: 220px; */
+  }
+  .booking__header {
+    padding-left: unset;
+    padding-right: unset;
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+}

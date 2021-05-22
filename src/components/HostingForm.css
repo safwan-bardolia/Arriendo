@@ -148,7 +148,7 @@ input::placeholder {
 
 .createAccount > button {
   width: 100%;
-  background-color: #ff7779;
+  background-color: #683479;
   color: #fff;
   border: 2px solid #fff;
   margin-top: 1em;
@@ -161,7 +161,7 @@ input::placeholder {
 
 .createAccount > button:hover {
   /* color: #519e8a; */
-  background-color: #ff385c;
+  background-color: #704f9d;
   /* border: 2px solid #519e8a; */
 }
 

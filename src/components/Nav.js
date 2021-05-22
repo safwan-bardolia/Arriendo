@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom'
 import { selectUser } from '../features/userSlice'
 import { auth } from '../firebase'
 import "./Nav.css"
+import logo from '../img/logo.png'
 
 function Nav() {
 
@@ -18,7 +19,7 @@ function Nav() {
     return (
         <div className="nav">
 
-            <img className="nav__icon" onClick={()=>history.push('/')} src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/768px-Airbnb_Logo_B%C3%A9lo.svg.png" alt=""/>
+            <img className="nav__icon" onClick={()=>history.push('/')} src={logo} alt=""/>
             
             <div className="nav__middle">
                 <input type="text" placeholder="search"/>

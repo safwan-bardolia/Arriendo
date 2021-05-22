@@ -4,6 +4,7 @@ import { auth, provider } from '../firebase'
 import { login, logout } from '../features/userSlice';
 import './Login.css'
 import { useDispatch } from 'react-redux';
+import logo from '../img/logo.png'
 
 function Login() {
 
@@ -38,7 +39,7 @@ function Login() {
     return (
         <div className="login">
             <div className="login__logo">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/768px-Airbnb_Logo_B%C3%A9lo.svg.png" alt=""/>
+                <img src={logo} alt=""/>
             </div>
             <Button type="submit" onClick={signIn}>
                 sign In with google

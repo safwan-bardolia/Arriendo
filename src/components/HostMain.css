@@ -62,7 +62,7 @@
 
 .hostMain__left > button {
   cursor: pointer;
-  background-color: #bd1e59;
+  background-color: #683479;
   color: #fff;
   text-transform: inherit;
   font-size: 18px;
@@ -74,7 +74,7 @@
 }
 
 .hostMain__left > button:hover {
-  background-color: #ff385c;
+  background-color: #704f9d;
 }
 
 .hostMain__right {

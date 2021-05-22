@@ -90,13 +90,13 @@
   font-size: 30px;
   font-weight: 600;
   padding-bottom: 18px;
-  color: #bd1e59;
+  color: #683479;
 }
 
 .not__register__top > button {
   width: 200px;
   cursor: pointer;
-  background-color: #bd1e59;
+  background-color: #683479;
   color: #fff;
   text-transform: inherit;
   font-size: 18px;
@@ -109,7 +109,7 @@
 
 .not__register__top > button:hover,
 .hostingFormProfile__top > button:hover {
-  background-color: #ff385c;
+  background-color: #704f9d;
 }
 
 .hosting__info {
@@ -121,7 +121,7 @@
   margin: 32px;
   /* width: 20px; */
   cursor: pointer;
-  background-color: #bd1e59;
+  background-color: #683479;
   color: #fff;
   text-transform: inherit;
   font-size: 18px;

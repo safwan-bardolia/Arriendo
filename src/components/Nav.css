@@ -33,7 +33,7 @@
 }
 
 .nav__icon {
-  height: 42px;
+  height: 77px;
   object-fit: contain;
   margin-left: 20px;
   min-width: 80px;
@@ -68,7 +68,7 @@
 }
 
 .nav__middle__search {
-  background-color: #ff385c;
+  background-color: #8943a0;
   border-radius: 999px;
   padding: 5px;
   cursor: pointer;

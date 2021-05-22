@@ -36,7 +36,7 @@
 
 .map__button {
   cursor: pointer;
-  background-color: #1f7dff;
+  background-color: #683479;
   color: #ffffff;
   text-transform: inherit;
   font-size: 18px;
@@ -48,7 +48,7 @@
 }
 
 .map__button:hover {
-  background-color: #0066ec;
+  background-color: #704f9d;
 }
 
 @media screen and (max-width: 480px) {

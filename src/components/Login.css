@@ -6,19 +6,20 @@
 }
 
 .login__logo > img {
-  height: 150px;
+  height: 345px;
+  width: 320px;
   object-fit: contain;
 }
 
 .login > button {
-  background-color: #ff7779;
+  background-color: #683479;
   color: white;
   width: 300px;
   font-weight: 800;
 }
 
 .login > button:hover {
-  background-color: #ff385c;
+  background-color: #704f9d;
 }
 
 .MuiButton-root {
@@ -27,19 +28,27 @@
 
 @media screen and (max-width: 480px) {
   .login {
-    display: unset;
-    place-items: unset;
-  }
-  .login__logo {
-    padding-left: 45px;
-    padding-top: 88px;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    place-items: unset; */
+    display: block;
+    padding-top: 60px;
+    height: auto;
   }
   .login__logo > img {
-    height: 90px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 300px;
+    width: 300px;
+    margin-bottom: 110px;
   }
   .login > button {
-    margin-left: 122px;
-    margin-top: 140px;
-    width: 133px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 250px;
   }
 }

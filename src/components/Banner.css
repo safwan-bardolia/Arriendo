@@ -40,7 +40,7 @@
 
 .banner__content > button {
   cursor: pointer;
-  background-color: #ff7779;
+  background-color: #683479;
   color: #fff;
   text-transform: inherit;
   margin-top: 20px;
@@ -48,7 +48,7 @@
 }
 
 .banner__content > button:hover {
-  background-color: #ff385c;
+  background-color: #704f9d;
 }
 
 .banner__content > h5 {

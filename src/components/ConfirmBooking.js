@@ -6,6 +6,9 @@ import { Avatar, Button } from '@material-ui/core';
 import { useState } from 'react';
 import { selectUser } from '../features/userSlice';
 import { useSelector } from 'react-redux';
+import myBookingApi from '../api/myBookingApi'
+import myHostingClientApi from '../api/myHostingClientApi'
+import { useEffect } from 'react';
 
 function ConfirmBooking() {
 
@@ -22,9 +25,26 @@ function ConfirmBooking() {
   const hostingInfo = location?.hostingInfo;
   const hostingInfoCoordinates = location?.hostingInfoCoordinates;
   const parkingDuration = location?.parkingDuration;
-  console.log(hostingInfo);
-  console.log(hostingInfoCoordinates);
-  console.log(parkingDuration);
+
+	// at the start of this component check if the user has already reserve parking??
+	useEffect(()=>{
+
+		async function check() {
+			// means booking is still present for current user
+			myBookingApi.get(`/mybookings/${user.uid}`)
+			.then(resp=>{
+				console.log(resp);
+				alert("you already have one booking request in pending, first complete it")
+				history.push("/myBooking")
+			})
+			.catch(err=>{
+				console.log(err);
+			})
+		}
+
+		check();
+
+	},[history,user.uid])
 
   const [formData, setFormData] = useState({
     fullName:"",
@@ -93,7 +113,7 @@ function ConfirmBooking() {
   }  
 
 	// when form is submitted
-	const handleSubmit = (e) => {
+	const handleSubmit = async(e) => {
 		e.preventDefault();
 
 		// call formValid()
@@ -119,9 +139,10 @@ function ConfirmBooking() {
 
 			// ******** post the data to backend **********
 
+			// for MyBooking api
 			const formInfo = new FormData();
 
-			formInfo.append('uid', user.uid);
+			formInfo.append('c_uid', user.uid);
 			formInfo.append('email', user.email)
 			formInfo.append('userProfileUrl',user.photo);
 
@@ -137,15 +158,30 @@ function ConfirmBooking() {
 			formInfo.append('licensePhoto',formData.licensePhoto);
 			formInfo.append('rcPhoto',formData.rcPhoto);
 
-			formInfo.append('hostUID',hostingInfo.uid);
+			formInfo.append('host_uid',hostingInfo.uid);
+
+			// for MyHostingClient api (which is for host)
+			const formInfo1 = new FormData();
+
+			formInfo1.append('uid',hostingInfo.uid+user.uid);
+			formInfo1.append('driver_uid',user.uid);
 
 
-			// post to my__booking
+			// *****************post to backend*******************
+			try {
+				// post to my__booking
+				const myBookingResponce = await myBookingApi.post("/mybookings",formInfo);
+				console.log(myBookingResponce);
 
+				// post to my__hosting__client (which is for host)
+				const MyHostingClientResponce = await myHostingClientApi.post("/myhostingclients",formInfo1);
+				console.log(MyHostingClientResponce);
 
-			// now remove some field from formInfo
-			// post to my__hosting__client
-
+				alert("data added successfully");
+				history.push("/myBooking")
+			} catch(err) {
+				alert(err);
+			}
 
 		} else {
 				console.error('FORM INVALID - DISPLAY ERROR MESSAGE');
@@ -254,7 +290,7 @@ function ConfirmBooking() {
 							</div>
 						</div>
 						<div className="confirmBooking__time__right">
-							<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU"/>
+							<img alt="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU"/>
 							<p>{hostingInfo.description}</p>
 							<div className="confirmBooking__time__right__info">
 								<h2>Price details</h2>

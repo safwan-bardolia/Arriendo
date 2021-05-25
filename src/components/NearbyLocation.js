@@ -10,7 +10,6 @@ import hostingApi from '../api/hostingApi';
 import hostingLocationApi from '../api/hostingLocationApi';
 import { useSelector } from 'react-redux';
 import { selectLat, selectLng } from '../features/positionSlice';
-import Booking from './Booking';
 import { useHistory } from 'react-router';
 
 if (!('remove' in Element.prototype)) {

@@ -1,5 +1,5 @@
 import { Avatar, Button } from '@material-ui/core';
-import { Call, Description, HearingTwoTone, Highlight, List, LocalParking, LocalParkingRounded, MeetingRoom, Star, ThumbUpAlt, VpnKey } from '@material-ui/icons';
+import { Call, Description, Highlight, LocalParking, MeetingRoom, Star, ThumbUpAlt, VpnKey } from '@material-ui/icons';
 import React from 'react'
 import { useHistory, useLocation } from 'react-router'
 import './Booking.css'
@@ -61,7 +61,7 @@ function Booking() {
           </div>
 
           <div className="booking__img__card">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU"/>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU" alt=""/>
             <form id="booking__paymentcard" className="booking__paymentcard" onSubmit={booking}>
               <h4>{`₹${hostingInfo.fees} / hour`}</h4>
               <div className="booking__paymentcard__input">

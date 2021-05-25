@@ -16,9 +16,24 @@ function Booking() {
   const hostingInfo = location?.hostingInfo?.properties;
   const hostingInfoCoordinates = location?.hostingInfo?.geometry?.coordinates;
 
+  // on form submit
   const booking = (e) => {
     e.preventDefault();
-    console.log("book")
+    // get the form values
+    const formValues = document.getElementById('booking__paymentcard').elements;
+    const parkingDuration = {};
+    for(var i=0;i<formValues.length-1;i++) {
+      const item = formValues.item(i);
+      parkingDuration[item.name] = item.value; 
+    }
+    
+    // send to next component
+    history.push({
+      pathname:'/confirmBooking',
+      hostingInfo: hostingInfo,
+      hostingInfoCoordinates: hostingInfoCoordinates,
+      parkingDuration: parkingDuration
+    })
   }
 
   console.log(hostingInfoCoordinates);
@@ -47,20 +62,20 @@ function Booking() {
 
           <div className="booking__img__card">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU"/>
-            <form className="booking__paymentcard" onSubmit={booking}>
+            <form id="booking__paymentcard" className="booking__paymentcard" onSubmit={booking}>
               <h4>{`₹${hostingInfo.fees} / hour`}</h4>
               <div className="booking__paymentcard__input">
                 <div className="booking__paymentcard__date">
                   <h4>CHECK-IN</h4>
-                  <input type="date" required/>
+                  <input name="date" type="date" required/>
                 </div>
                 <div className="booking__paymentcard__checkIntime">
                   <h4>CHECK-IN-TIME</h4>
-                  <input type="time" required/>
+                  <input name="check-in-time" type="time" required/>
                 </div>
                 <div className="booking__paymentcard__checkouttime">
                   <h4>CHECK-OUT-TIME</h4>
-                  <input type="time" required/>
+                  <input name="check-out-time" type="time" required/>
                 </div>
               </div>
               <Button type="submit">Reserve</Button>

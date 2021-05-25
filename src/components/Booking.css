@@ -9,13 +9,13 @@
   font-weight: 600;
   font-size: 30px;
   padding-bottom: 18px;
-  color: #bd1e59;
+  color: #683479;
 }
 
 .booking__backdoor > button {
   width: 200px;
   cursor: pointer;
-  background-color: #bd1e59;
+  background-color: #683479;
   color: #fff;
   text-transform: inherit;
   font-size: 18px;
@@ -27,7 +27,7 @@
 }
 
 .booking__backdoor > button:hover {
-  background-color: #ff385c;
+  background-color: #704f9d;
 }
 
 .booking__header {
@@ -163,7 +163,7 @@
 
 .booking__paymentcard > button {
   cursor: pointer;
-  background-color: #bd1e59;
+  background-color: #683479;
   color: #fff;
   text-transform: inherit;
   /* font-size: 18px; */
@@ -177,7 +177,7 @@
 }
 
 .booking__paymentcard > button:hover {
-  background-color: #ff385c;
+  background-color: #704f9d;
 }
 
 .booking__hosting {

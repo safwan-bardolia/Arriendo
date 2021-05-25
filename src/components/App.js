@@ -15,6 +15,7 @@ import Map from "./Map"
 import ProfileMap from './ProfileMap';
 import NearbyLocation from './NearbyLocation';
 import Booking from './Booking';
+import ConfirmBooking from './ConfirmBooking';
 
 const App = () => {
 
@@ -54,10 +55,13 @@ const App = () => {
 
                         <Switch>
 
+                            <Route exact path="/confirmBooking">
+                                <ConfirmBooking/>
+                            </Route>
+
                             <Route exact path="/booking">
                                 <Booking/>
                             </Route>
-
 
                             <Route exact path="/nearbyLocation">
                                 <NearbyLocation/>

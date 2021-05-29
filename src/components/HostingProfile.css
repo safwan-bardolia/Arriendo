@@ -135,6 +135,7 @@
 @media screen and (max-width: 480px) {
   .hostingFormProfile__top {
     padding: none;
+    flex-direction: column;
   }
 
   .hostingFormProfile__topleft {

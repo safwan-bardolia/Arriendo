@@ -39,8 +39,9 @@ function Nav() {
                     </IconButton>
                     <div className="dropdown__content">
                         <h6 onClick={()=>history.push("/mapprofile")}>hosting location</h6>
-                        <h6 onClick={()=>history.push("/profile")}>profile</h6>
+                        <h6 onClick={()=>history.push("/profile")}>hosting profile</h6>
                         <h6 onClick={()=>history.push("/myBooking")}>My Booking</h6>
+                        <h6 onClick={()=>history.push("/myclients")}>My clients</h6>
                         <h6 className="logout" onClick={()=>auth.signOut()}>Logout</h6>
                     </div>
                 </div>    

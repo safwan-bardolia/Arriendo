@@ -55,6 +55,10 @@
 }
 
 @media screen and (max-width: 480px) {
+  .hostingFormProfile {
+    padding-top: 0;
+  }
+
   .profilemap__top {
     padding: none;
   }

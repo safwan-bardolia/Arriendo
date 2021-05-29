@@ -1,0 +1,75 @@
+.myBooking {
+  padding-top: 64px;
+}
+
+.myBooking__notConfirm {
+  display: flex;
+  justify-content: space-between;
+  padding: 32px;
+  border-bottom: 1px solid lightgray;
+}
+
+.myBooking__notConfirm__left {
+  padding: 32px;
+}
+
+.myBooking__notConfirm__left > h1 {
+  margin: 0px !important;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+    Helvetica Neue, sans-serif !important;
+  color: #484848 !important;
+  font-size: 32px !important;
+  font-weight: 800 !important;
+  line-height: 1.125em !important;
+}
+
+.myBooking__notConfirm__left > h4 {
+  display: flex;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+    Helvetica Neue, sans-serif !important;
+  color: #484848 !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 1.375em !important;
+}
+
+.myBooking__notConfirm__left > h4 .MuiSvgIcon-root {
+  margin-right: 8px;
+}
+
+.myBooking__notConfirm > button {
+  margin: 32px;
+  cursor: pointer;
+  background-color: #683479;
+  color: #fff;
+  text-transform: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 16px 32px 16px 32px;
+}
+
+.myBooking__notConfirm > button:hover {
+  background-color: #704f9d;
+}
+
+@media screen and (max-width: 480px) {
+  .myBooking {
+    padding-top: 0;
+  }
+  .myBooking__notConfirm {
+    flex-direction: column;
+    padding: none;
+  }
+  .myBooking__notConfirm__left {
+    padding: 30px 6px 10px 6px;
+  }
+  .myBooking__notConfirm > button {
+    margin: 12px;
+    font-size: unset;
+  }
+}

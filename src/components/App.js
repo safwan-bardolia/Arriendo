@@ -17,6 +17,7 @@ import NearbyLocation from './NearbyLocation';
 import Booking from './Booking';
 import ConfirmBooking from './ConfirmBooking';
 import MyBooking from './MyBooking';
+import MyHostingClient from './MyHostingClient';
 
 const App = () => {
 
@@ -55,6 +56,10 @@ const App = () => {
                         <Nav/>
 
                         <Switch>
+
+                            <Route exact path="/myclients">
+                                <MyHostingClient/>
+                            </Route>
 
                             <Route exact path="/myBooking">
                                 <MyBooking/>

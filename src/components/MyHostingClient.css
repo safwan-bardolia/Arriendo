@@ -1,0 +1,28 @@
+.myHostingClient {
+  overflow-y: scroll;
+}
+
+.myHostingClient__header {
+  padding: 3rem;
+  text-align: center;
+  border-bottom: 1px solid #8943a0;
+}
+
+.myHostingClient__header > h1 {
+  margin: 5px;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 480px) {
+  .myHostingClient__header {
+    padding: unset;
+    overflow-x: scroll;
+  }
+  .myHostingClient__header > h1 {
+    text-align: center;
+    font-size: 22px;
+  }
+  .myHostingClient__header > p {
+    margin-bottom: 5px;
+  }
+}

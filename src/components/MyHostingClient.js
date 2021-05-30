@@ -1,10 +1,8 @@
-import { Button } from '@material-ui/core';
 import { CheckSharp, Lock, SupervisedUserCircle } from '@material-ui/icons';
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router'
 import myHostingClientApi from '../api/myHostingClientApi';
 import { selectUser } from '../features/userSlice';
 import Footer from './Footer';
@@ -14,13 +12,7 @@ import MyHostingClientResult from './MyHostingClientResult';
 
 function MyHostingClient() {
 
-  // to keep track of url
-  const history = useHistory();
-
   const user = useSelector(selectUser);
-
-  // we pass this state to child, so if we reject any req in child it will cause the parent component to re-render
-  const[renderList, setRenderList] = useState(false);
 
   const[clients,setClients] = useState([]);
 
@@ -37,13 +29,17 @@ function MyHostingClient() {
 
     check();
 
-  },[])
+  },[user.uid])
 
   return (
     <div className="myHostingClient">
       {clients?.length > 0?(
         <>
-          {clients.map((client)=> <MyHostingClientResult key={client.uid} client={client} setRenderList={setRenderList} /> )}
+          <div className="myHostingClient__header">
+            <h1>{`Welcome back ${user.email}`}</h1>
+            <p>Below are your client request.</p>
+          </div>
+          {clients.map((client)=> <MyHostingClientResult key={client.uid} client={client} /> )}
         </>
       ):(
         <>

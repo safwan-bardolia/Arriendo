@@ -54,6 +54,7 @@ function ConfirmBooking() {
     licenseNumber:"",
     licensePhoto:"",
 		rcPhoto:"",
+		aadharFile:"",
     formErrors:{
       fullName:"",
       mobile:"",
@@ -62,6 +63,7 @@ function ConfirmBooking() {
       licenseNumber:"",
       licensePhoto:"",
 			rcPhoto:"",
+			aadharFile:"",
     }
   })
 
@@ -134,6 +136,7 @@ function ConfirmBooking() {
 			licenseNumber: ${formData.licenseNumber}
 			licensePhoto: ${formData.licensePhoto}
 			rcPhoto: ${formData.rcPhoto}
+			IdProof: ${formData.aadharFile}
 			hostUID: ${hostingInfo.uid}
 			`)
 
@@ -157,6 +160,7 @@ function ConfirmBooking() {
 			formInfo.append('licenseNumber',formData.licenseNumber);
 			formInfo.append('licensePhoto',formData.licensePhoto);
 			formInfo.append('rcPhoto',formData.rcPhoto);
+			formInfo.append('aadharFile',formData.aadharFile);
 
 			formInfo.append('host_uid',hostingInfo.uid);
 
@@ -229,6 +233,13 @@ function ConfirmBooking() {
 
 			case 'rcPhoto':
 				formErrors.rcPhoto = e.target.files.length===0 ? `please add ${name}` : "";
+				if(e.target.files.length!==0) {
+					value = e.target.files[0];
+				}  
+				break;
+
+			case 'aadharFile':
+				formErrors.aadharFile = e.target.files.length===0 ? `please add ${name}` : "";
 				if(e.target.files.length!==0) {
 					value = e.target.files[0];
 				}  
@@ -412,6 +423,20 @@ function ConfirmBooking() {
 											<span className="errorMessage">{formErrors.licensePhoto}</span>
 									)}
                 </div>
+
+								<div className="aadharFile">
+									<label htmlFor="aadharFile">Id proof E.g aadhar, Pan etc</label>
+									<input 
+											type="file"
+											className={formErrors.aadharFile.length > 0 ? "error":null}
+											name="aadharFile"
+											onChange={handleChange}
+									/>
+									{/* displaying error msg */}
+									{ formErrors.aadharFile.length > 0 && (
+											<span className="errorMessage">{formErrors.aadharFile}</span>
+									)}
+								</div>
 
                 <div className="state">
 									<label htmlFor="rcPhoto">Add image of your RC-book</label>

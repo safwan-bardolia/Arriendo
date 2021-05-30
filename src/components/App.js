@@ -18,6 +18,7 @@ import Booking from './Booking';
 import ConfirmBooking from './ConfirmBooking';
 import MyBooking from './MyBooking';
 import MyHostingClient from './MyHostingClient';
+import MyHostingClientResultInfo from './MyHostingClientResultInfo';
 
 const App = () => {
 
@@ -56,6 +57,10 @@ const App = () => {
                         <Nav/>
 
                         <Switch>
+
+                            <Route exact path="/myclients/info">
+                                <MyHostingClientResultInfo/>
+                            </Route>
 
                             <Route exact path="/myclients">
                                 <MyHostingClient/>

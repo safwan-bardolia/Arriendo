@@ -1,0 +1,122 @@
+.myHostingClientResult {
+  display: flex !important;
+  position: relative;
+  margin: 20px;
+  margin-left: 35px;
+  margin-right: 35px;
+  padding: 5px;
+  cursor: pointer;
+  overflow-x: scroll;
+
+  background-image: linear-gradient(to right, #9ba1a6, #110427);
+  /* background-image: linear-gradient(to right, #9ac3e5, #110427); */
+
+  color: #000;
+  border-radius: 10px;
+  box-shadow: 0px 6px 18px -9px rgba(0, 0, 0, 0.75);
+  transition: transform 100ms ease-in;
+}
+
+.myHostingClientResult:hover {
+  /* background-color: #ebebe5; */
+  transform: scale(1.02);
+}
+
+.myHostingClientResult__middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 10px;
+}
+
+.myHostingClientResult__middle__link {
+  display: flex;
+}
+
+.myHostingClientResult__middle__link > a {
+  margin-right: 20px;
+  text-decoration: none;
+  /* color: #be3939; */
+  /* color: #740091; */
+  background: #000;
+  color: #9ba1a6;
+  border-radius: 23px;
+  padding: 10px;
+  transition: transform 100ms ease-in;
+}
+
+.myHostingClientResult__middle__link > a:hover {
+  transform: scale(1.2);
+}
+
+.myHostingClientResult__middle > p {
+  /* margin-top: 10px; */
+  margin-bottom: 5px;
+  font-size: 14px;
+  /* color: #808080; */
+  /* color: #fff; */
+  color: #000;
+}
+
+.myHostingClientResult__middle > h4 {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  /* margin-top: 10px;
+  margin-left: 50px; */
+  margin-left: 20px;
+}
+
+.myHostingClientResult__left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 182px;
+  /* height: 150px; */
+}
+
+.myHostingClientResult__left > h5 {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 480px) {
+  .myHostingClientResult {
+    margin: 5px;
+    margin-bottom: 12px;
+    padding: 5px;
+    overflow-x: scroll;
+    /* flex-direction: column; */
+  }
+  .myHostingClientResult__middle {
+    margin-left: 5px;
+  }
+  .myHostingClientResult__right {
+    margin-left: 5px;
+    min-width: unset;
+  }
+  .avatar {
+    margin-left: 5px;
+  }
+  .myHostingClientResult__middle > h4 {
+    display: unset;
+    align-items: unset;
+  }
+}
+
+@media screen and (min-width: 908px) {
+  .myHostingClientResult {
+    /* justify-content: space-between; */
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+  .myHostingClientResult__middle {
+    margin-left: 100px;
+  }
+  .avatar {
+    margin-left: 100px;
+  }
+}

@@ -90,7 +90,7 @@ function MyBooking() {
       {myBookingData.booking?(
         <>
           {/* check if host has acknowledge his parking space */}
-          {myBookingData.booking.confirmation===true?(
+          {myBookingData.booking.confirmation==='true'?(
             <>
               ****host has acknowledge you
             </>

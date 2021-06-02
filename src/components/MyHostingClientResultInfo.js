@@ -10,17 +10,63 @@ import AirportShuttleTwoToneIcon from '@material-ui/icons/AirportShuttleTwoTone'
 import DescriptionTwoToneIcon from '@material-ui/icons/DescriptionTwoTone';
 import myBookingApi from '../api/myBookingApi';
 import myHostingClientApi from '../api/myHostingClientApi';
+import hostingApi from '../api/hostingApi';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../features/userSlice'
+import { useState } from 'react';
 
 function MyHostingClientResultInfo() {
 
   const history = useHistory();
 
+  const user = useSelector(selectUser);
+
   // for accessing Passed parameters with history push:
   const location = useLocation();
 
   // create shortcut
-  const clientData = location?.clientData;
+  const [clientData, setClientData] = useState(location?.clientData);
   console.log(clientData)
+  console.log(`${clientData?.confirmation==='false'?"visible":"hide"}`)
+
+  // accept client req so that it can navigate to your location
+  const acceptReq = async() => {
+    try{
+      // check if the parking space available? for host
+      const resp = await hostingApi.get(`/hostings/${clientData.host_uid}`)
+
+      if(resp.data.totalVehicles===0) {
+        alert("!parking space is full, you cannot allocate him the parking space");
+      } else {
+        
+        // release your parking space
+        const formInfo = new FormData();
+        formInfo.append('uid', clientData.host_uid);
+        formInfo.append('totalVehicles',resp.data.totalVehicles-1);
+        const resp1 = await hostingApi.patch("/hostings", formInfo); 
+
+        // acknowledge your client
+        const formInfo1 = new FormData();
+        formInfo1.append('c_uid', clientData.c_uid);
+        formInfo1.append('confirmation','true');
+        const resp2 = await myBookingApi.patch("/mybookings", formInfo1);
+
+        // send otp
+        hostingApi.get(`/hostings/${user.email}/${clientData.email}/${clientData.fullName}/${clientData.mobile}`);
+
+        alert("request accepted successfully, now verify the client in-person i.e otp")
+
+        // update state(because we are not fetching from db after rerendering)
+        setClientData({
+          ...clientData,
+          confirmation: 'true'
+        })
+      }
+
+    } catch(err) {
+      alert(err);
+    }
+  }
   
   // delete client req if info are wrong or invalid
   const deleteReq = async() => {
@@ -140,11 +186,19 @@ function MyHostingClientResultInfo() {
 
           </div>
 
-          <div className="myHostingClientResultInfo__accept__reject_one">
+          <div className={`myHostingClientResultInfo__accept__reject_one ${clientData?.confirmation==='false'? "":"hide__info"}`}>
             <p><Info/> accept the client request if details are valid otherwise reject client request.</p>
             <div className="myHostingClientResultInfo__accept__reject_one__button">
-              <Button className="myHostingClientResultInfo__accept__btn"><Check/>accept</Button>
+              <Button onClick={acceptReq} className="myHostingClientResultInfo__accept__btn"><Check/>accept</Button>
               <Button onClick={deleteReq} className="myHostingClientResultInfo__reject__btn"><Delete/>reject</Button>
+            </div>
+          </div>  
+
+          <div className={`myHostingClientResultInfo__accept__reject_one ${clientData?.confirmation==='true' && clientData?.final_confirmation==='false'? "":"hide__info"}`}>
+            <p><Info/> verify the otp and documents when client reach to your location. once you verify it you are giving all the rights to the client to park his car</p>
+            <div className="myHostingClientResultInfo__accept__reject_one__button">
+              <Button className="myHostingClientResultInfo__accept__btn"><Check/>verify</Button>
+              <Button className="myHostingClientResultInfo__reject__btn"><Delete/>reject</Button>
             </div>
           </div>  
 

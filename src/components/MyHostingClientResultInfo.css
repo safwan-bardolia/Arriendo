@@ -64,3 +64,8 @@
     margin-right: 15px;
   }
 }
+
+.myHostingClientResultInfo > .hide__info {
+  pointer-events: none;
+  opacity: 0.4;
+}

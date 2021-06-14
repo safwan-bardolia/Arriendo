@@ -1,6 +1,7 @@
-import { Button } from '@material-ui/core';
-import { CheckSharp, Error, Lock, SupervisedUserCircle } from '@material-ui/icons';
+import { Avatar, Button } from '@material-ui/core';
+import { Call, Check, CheckCircle, CheckSharp, Description, Error, LocalParking, Lock, Star, SupervisedUserCircle } from '@material-ui/icons';
 import React from 'react'
+import { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -14,12 +15,27 @@ import Footer from './Footer';
 import HostingInfo from './HostingInfo';
 import './MyBooking.css'
 
+import mapboxgl from 'mapbox-gl/dist/mapbox-gl-csp';
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
+
+import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
+import { selectLat, selectLng } from '../features/positionSlice';
+
+mapboxgl.workerClass = MapboxWorker;
+mapboxgl.accessToken = 'pk.eyJ1Ijoic2Fmd2FuLWJhcmRvbGlhIiwiYSI6ImNrb2IwaXI5MzAzYnkydm4xZWg4eDFkbmoifQ.2JbbEHLeVd5Y1BcuVHAyyQ';
+
+
 function MyBooking() {
 
   // to keep track of url
-  const history = useHistory();
+  const history = useHistory(null);
 
+  // get default value from slice
   const user = useSelector(selectUser);
+  const lat = useSelector(selectLat);
+  const lng = useSelector(selectLng);
+  console.log(lng)
 
   // because we fetch data from multiple api using f_key
   const[myBookingData, setMyBookingData] = useState({
@@ -29,6 +45,29 @@ function MyBooking() {
   });
 
   console.log(myBookingData)
+
+  const loadMap=(destLng,destLat)=> {
+    var map = new mapboxgl.Map({
+      container: 'myBooking__map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [lng, lat],
+      // center: [73,20],
+      zoom: 9,
+    });
+
+    const directions = new MapboxDirections({
+      accessToken: mapboxgl.accessToken
+    })
+
+    // for direction from source to destination
+    map.addControl(directions,'top-left');
+
+    map.on('load',()=> {
+      directions.setOrigin([lng,lat]);
+      directions.setDestination([destLng,destLat]);
+    })
+
+  }
 
   useEffect(()=>{
 
@@ -50,6 +89,8 @@ function MyBooking() {
           location:locResp.data
         })
 
+        loadMap(locResp.data.longitude,locResp.data.latitude);
+
       } catch(err) {
         console.log(err);
       }
@@ -57,7 +98,7 @@ function MyBooking() {
 
     check();
 
-  },[user.uid])
+  },[user.uid,lat,lng])
 
   // cancel Booking
   const cancelBooking = async() => {
@@ -92,7 +133,48 @@ function MyBooking() {
           {/* check if host has acknowledge his parking space */}
           {myBookingData.booking.confirmation==='true'?(
             <>
-              ****host has acknowledge you
+              <div className="myBooking__notConfirm">
+                <div className="myBooking__notConfirm__left">
+                  <h1><CheckCircle/> Host has acknowledge your request</h1>
+                  <h4> when you reach to the location then you have verify otp & documents in person, until that you cannot park the car.</h4>
+                </div>
+                <Button onClick={cancelBooking}>
+                  cancel booking
+                </Button>
+              </div>
+
+              <div className="booking__header">
+                <h1>{myBookingData.hosting.address}</h1>
+                <div className="booking__header__info">
+                  <div className="booking__header__info__left">
+                    <div className="booking__header__info__rating">
+                      <Star/>
+                      4.3
+                    </div>
+                    <h4>{`${myBookingData.hosting.city},${myBookingData.hosting.state},${myBookingData.hosting.country}`}</h4>
+                  </div>
+                  <div className="booking__header__info__right">
+                    {/* <HearingTwoTone/>
+                    <List/> */}
+                    <Call/>
+                    {myBookingData.hosting.mobile}
+                  </div>
+                </div>
+              </div>
+
+              <div className="booking__hosting">
+                <div className="booking__hosting__left">
+                  <h4>{`Parking at home hosted by ${myBookingData.hosting.fullName}`}</h4>
+                  <Avatar src={myBookingData.hosting.userProfileUrl}/>
+                </div>
+              </div>
+
+              <div className="booking__description">
+                <Description/>
+                <p>{myBookingData.hosting.description}</p>   
+              </div>      
+
+              <div className="myBooking__map" id="myBooking__map"/>
             </>
           ):(
             // host has not acknowledge your req yet

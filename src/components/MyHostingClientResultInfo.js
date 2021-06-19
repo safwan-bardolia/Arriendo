@@ -49,6 +49,7 @@ function MyHostingClientResultInfo() {
         const formInfo1 = new FormData();
         formInfo1.append('c_uid', clientData.c_uid);
         formInfo1.append('confirmation','true');
+        formInfo1.append('final_confirmation','false');
         const resp2 = await myBookingApi.patch("/mybookings", formInfo1);
 
         // send otp
@@ -89,7 +90,60 @@ function MyHostingClientResultInfo() {
     }
   }
 
+  // 2nd time verification (otp & in-person documents)
+  const finalVerify = async() => {
+    if(window.confirm("are you sure that all the documents are valid & otp is also correct")) {
+      try{
+        // allow client to park his car
+        const formInfo1 = new FormData();
+        formInfo1.append('c_uid', clientData.c_uid);
+        formInfo1.append('confirmation','true');
+        formInfo1.append('final_confirmation','true');
+        await myBookingApi.patch("/mybookings", formInfo1);
 
+        alert("request accepted successfully, now client can park the car")
+
+        // update state(because we are not fetching from db after rerendering)
+        setClientData({
+          ...clientData,
+          final_confirmation: 'true'
+        })
+        
+      } catch(err) {
+        console.log(err);
+      }
+    }  
+  }
+
+  // final rejection (if otp & in-person documents are wrong)
+  const finalReject = async() => {
+    if(window.confirm("are you sure, you want to reject this client from parking")) {
+      try{
+        // delete my_booking record
+        await myBookingApi.delete(`/mybookings/${clientData.c_uid}`);
+
+        // delete my_hosting_client record (so host doesnt see this req anymore)
+        const myHostingClient_pk = clientData.host_uid+clientData.c_uid;
+        await myHostingClientApi.delete(`/myhostingclients/${myHostingClient_pk}`);
+
+        // fetch host record first
+        const resp = await hostingApi.get(`/hostings/${clientData.host_uid}`)
+
+        // release your parking space
+        const formInfo = new FormData();
+        formInfo.append('uid', clientData.host_uid);
+        formInfo.append('totalVehicles',resp.data.totalVehicles+1);
+        await hostingApi.patch("/hostings", formInfo);  
+        
+        alert("client request deleted successfully");
+
+        history.push("/myclients");
+
+      } catch(err) {
+        alert(err);
+      }
+    }
+  }
 
   return (
     <div className="myHostingClientResultInfo">
@@ -197,8 +251,15 @@ function MyHostingClientResultInfo() {
           <div className={`myHostingClientResultInfo__accept__reject_one ${clientData?.confirmation==='true' && clientData?.final_confirmation==='false'? "":"hide__info"}`}>
             <p><Info/> verify the otp and documents when client reach to your location. once you verify it you are giving all the rights to the client to park his car</p>
             <div className="myHostingClientResultInfo__accept__reject_one__button">
-              <Button className="myHostingClientResultInfo__accept__btn"><Check/>verify</Button>
-              <Button className="myHostingClientResultInfo__reject__btn"><Delete/>reject</Button>
+              <Button onClick={finalVerify} className="myHostingClientResultInfo__accept__btn"><Check/>verify</Button>
+              <Button onClick={finalReject} className="myHostingClientResultInfo__reject__btn"><Delete/>reject</Button>
+            </div>
+          </div>  
+
+          <div className={`myHostingClientResultInfo__accept__reject_one ${clientData?.confirmation==='true' && clientData?.final_confirmation==='true'? "":"hide__info"}`}>
+            <p><Info/> click here after client makes the payment & checkout(you will receive mail). so that you can release your parking space</p>
+            <div className="myHostingClientResultInfo__accept__reject_one__button">
+              <Button className="myHostingClientResultInfo__accept__btn"><Check/>checkout</Button>
             </div>
           </div>  
 

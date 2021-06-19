@@ -126,12 +126,21 @@ function MyBooking() {
     }
   }
 
+  const renderPayment = () => {
+    if(myBookingData.booking.confirmation==='true' && myBookingData.booking.final_confirmation==='true'){
+      history.push('/payment')
+    }
+  }
+
   return (
     <div className="myBooking">
       {myBookingData.booking?(
         <>
+          {/* check if host has verify your documents in person & also otp */}
+          {renderPayment()}
+
           {/* check if host has acknowledge his parking space */}
-          {myBookingData.booking.confirmation==='true'?(
+          {myBookingData.booking.confirmation==='true' && myBookingData.booking.final_confirmation==='false'?(
             <>
               <div className="myBooking__notConfirm">
                 <div className="myBooking__notConfirm__left">

@@ -115,86 +115,124 @@ function HostingProfile() {
         <div className="hostingFormProfile">
             {hostingData? (
                 <>
-                    <div className="hostingFormProfile__top">
-                        <div className="hostingFormProfile__topleft">
-                            <h1>Profile</h1>
-                            <h4>{user.email}.</h4>
-                        </div>
-                        <Button onClick={deleteProfile}>
-                            delete profile
-                        </Button>
-                    </div>
+					{hostingData.verification==='true'?(
+						<>
+							<div className="hostingFormProfile__top">
+								<div className="hostingFormProfile__topleft">
+									<h1>Profile</h1>
+									<h4>{user.email}.</h4>
+								</div>
+								<Button onClick={deleteProfile}>
+									delete profile
+								</Button>
+							</div>
 
-                    <div className="hostingFormProfile__mid">
-                        <div className="hostingFormProfile__mid__info">
-                            <Person/>
-                            <h4>{hostingData.fullName}</h4>
-                        </div>
-                        <div className="hostingFormProfile__mid__info">
-                            <Call/>
-                            <h4>{hostingData.mobile}</h4>
-                        </div>
-                        <div className="hostingFormProfile__mid__info">
-                            <LocalParking/>
-                            <h4>{hostingData.totalVehicles}</h4>
-                        </div>
-                        <div className="hostingFormProfile__mid__info">
-                            <AttachMoney/>
-                            <h4>{hostingData.fees}</h4>
-                        </div>
-                        <div className="hostingFormProfile__mid__info">
-                            <Info/>
-                            <h4>{hostingData.description}</h4>
-                        </div>
-                        <div className="hostingFormProfile__mid__info">
-                            <Flag/>
-                            <h4>{hostingData.country}</h4>
-                        </div>
-                        <div className="hostingFormProfile__mid__info">
-                            <Info/>
-                            <h4>{hostingData.state}</h4>
-                        </div>
-                        <div className="hostingFormProfile__mid__info">
-                            <LocationCity/>
-                            <h4>{hostingData.city}</h4>
-                        </div>
-                        <div className="hostingFormProfile__mid__info">
-                            <Home/>
-                            <h4>{hostingData.address}</h4>
-                        </div>
-                        {/* <div className="hostingFormProfile__mid__info file">
-                            <FileCopy/>
-                            <h4>download Id proof</h4>
-                            <img src={hostingData.aadharFileUri}/>
-                        </div>
-                        <div className="hostingFormProfile__mid__info file">
-                            <FileCopy/>
-                            <h4>download Residential proof</h4>
-                        </div>
-                        <div className="hostingFormProfile__mid__info file">
-                            <FileCopy/>
-                            <h4>download parking Photo</h4>
-                        </div> */}
-                    </div>
-                        
-                    <div className="hostingFormProfile__card">
-                        <Card
-                            // src={hostingData.aadharFileUri}
-                            src=""
-                            title="parking image"
-                        />
-                        <Card
-                            src=""
-                            title="Id proof"
-                        />
-                        <Card
-                            src=""
-                            title="residential proof"
-                        />
-                    </div>
+							<div className="hostingFormProfile__mid">
+								<div className="hostingFormProfile__mid__info">
+									<Person/>
+									<h4>{hostingData.fullName}</h4>
+								</div>
+								<div className="hostingFormProfile__mid__info">
+									<Call/>
+									<h4>{hostingData.mobile}</h4>
+								</div>
+								<div className="hostingFormProfile__mid__info">
+									<LocalParking/>
+									<h4>{hostingData.totalVehicles}</h4>
+								</div>
+								<div className="hostingFormProfile__mid__info">
+									<AttachMoney/>
+									<h4>{hostingData.fees}</h4>
+								</div>
+								<div className="hostingFormProfile__mid__info">
+									<Info/>
+									<h4>{hostingData.description}</h4>
+								</div>
+								<div className="hostingFormProfile__mid__info">
+									<Flag/>
+									<h4>{hostingData.country}</h4>
+								</div>
+								<div className="hostingFormProfile__mid__info">
+									<Info/>
+									<h4>{hostingData.state}</h4>
+								</div>
+								<div className="hostingFormProfile__mid__info">
+									<LocationCity/>
+									<h4>{hostingData.city}</h4>
+								</div>
+								<div className="hostingFormProfile__mid__info">
+									<Home/>
+									<h4>{hostingData.address}</h4>
+								</div>
+								{/* <div className="hostingFormProfile__mid__info file">
+									<FileCopy/>
+									<h4>download Id proof</h4>
+									<img src={hostingData.aadharFileUri}/>
+								</div>
+								<div className="hostingFormProfile__mid__info file">
+									<FileCopy/>
+									<h4>download Residential proof</h4>
+								</div>
+								<div className="hostingFormProfile__mid__info file">
+									<FileCopy/>
+									<h4>download parking Photo</h4>
+								</div> */}
+							</div>
+								
+							<div className="hostingFormProfile__card">
+								<Card
+									// src={hostingData.aadharFileUri}
+									src=""
+									title="parking image"
+								/>
+								<Card
+									src=""
+									title="Id proof"
+								/>
+								<Card
+									src=""
+									title="residential proof"
+								/>
+							</div>
 
-                    {/* in case of update we pass this props */}
-                    <HostingForm update="update" hostingData={hostingData} setRerender={setRerender}/>
+							{/* in case of update we pass this props */}
+							<HostingForm update="update" hostingData={hostingData} setRerender={setRerender}/>
+
+						</>
+					):(
+						<>
+							<div className="not__register">
+
+								<div className="not__register__top">
+									<h4>verification pending....</h4>
+									
+									{/* <Button onClick={()=>history.push("/hosting/form")}>
+										start hosting
+									</Button> */}
+								</div>
+
+								<div className="hosting__info">
+									<HostingInfo
+										Icon={SupervisedUserCircle} 
+										title="Trust & Safety"
+										info="Trust & safety tools help you accept a booking only if you’re 100% comfortable."
+									/>
+									<HostingInfo
+										Icon={CheckSharp} 
+										title="Host Guarantee"
+										info="Your peace of mind is priceless. So we don’t charge for it. Every eligible booking on Makent is covered by our Host Guarantee - at no additional cost to you."
+									/>
+									<HostingInfo 
+										Icon={Lock} 
+										title="Secure payments"
+										info="Our fast, flexible payment system puts money in your bank account after guests check out."
+										last="last"
+									/>
+								</div>
+							</div>
+							<Footer/>
+						</>
+					)}
                 </>
             ):(
                 <>

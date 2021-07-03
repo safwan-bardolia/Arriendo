@@ -7,6 +7,7 @@ import './App.css'
 import Footer from './Footer';
 import Home from './Home';
 import HostingForm from './HostingForm';
+import Admin from './Admin';
 import HostingProfile from './HostingProfile';
 import HostMain from './HostMain';
 import Login from './Login';
@@ -58,6 +59,10 @@ const App = () => {
                         <Nav/>
 
                         <Switch>
+                            <Route exact path="/admin">
+                                <Admin/>
+                            </Route>
+
                             <Route exact path="/payment">
                                 <Payment/>
                             </Route>

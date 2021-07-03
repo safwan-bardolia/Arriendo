@@ -75,6 +75,7 @@ function NearbyLocation() {
             location.aadharFileUri=hosting.aadharFileUri;
             location.residentialFileUri=hosting.residentialFileUri;
             location.parkingPhotoUri=hosting.parkingPhotoUri;
+            location.verification=hosting.verification;
           }
         })
       })
@@ -111,7 +112,7 @@ function NearbyLocation() {
           "city": finalMergedData[i].city,
           "address": finalMergedData[i].address,
           "aadharFileUri": finalMergedData[i].aadharFileUri,
-        
+          "verification": finalMergedData[i].verification
         }
       })
     }
@@ -207,133 +208,141 @@ function NearbyLocation() {
         * which will be used several times below.
         **/
         var prop = store.properties;
-        
-        /* Add a new listing section to the sidebar. */
-        var listings = document.getElementById('listings');
-        var listing = listings.appendChild(document.createElement('div'));
-        /* Assign a unique `id` to the listing. */
-        listing.id = 'listing-' + prop.uid;
-        /* Assign the `item` class to each listing for styling. */
-        listing.className = 'item';
-                
-        // /* Add details to the individual listing. */
-        // var details = listing.appendChild(document.createElement('div'));
-        // details.innerHTML = prop.city;
-        // // if (prop.phone) {
-        // //   details.innerHTML += ' &middot; ' + prop.phoneFormatted;
-        // // }
+        console.log(prop.verification)
+        console.log(prop)
 
-        // add img inside listing
-        var img = listing.appendChild(document.createElement('img'));
-        img.src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU";
- 
-        /* Add the link to the individual listing created above. */
-        // var link = listing.appendChild(document.createElement('a'));
-        // link.href = '#';
-        // link.className = 'title';
-        // link.id = 'link-' + prop.uid;
-        // link.innerHTML = prop.address;
-        
-        
-        var listing__info = listing.appendChild(document.createElement('div'));
-        listing__info.className = 'listing__info';
+        // if verify by admin then only display in sidebar
+        if(prop.verification==="true") {
+          
+          /* Add a new listing section to the sidebar. */
+          var listings = document.getElementById('listings');
+          var listing = listings.appendChild(document.createElement('div'));
+          /* Assign a unique `id` to the listing. */
+          listing.id = 'listing-' + prop.uid;
+          /* Assign the `item` class to each listing for styling. */
+          listing.className = 'item';
+                  
+          // /* Add details to the individual listing. */
+          // var details = listing.appendChild(document.createElement('div'));
+          // details.innerHTML = prop.city;
+          // // if (prop.phone) {
+          // //   details.innerHTML += ' &middot; ' + prop.phoneFormatted;
+          // // }
 
-        // # listing__info start
-        
-        var listing__infoTop = listing__info.appendChild(document.createElement('div'));
-        listing__infoTop.className = 'listing__infoTop'
+          // add img inside listing
+          var img = listing.appendChild(document.createElement('img'));
+          img.src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU";
+  
+          /* Add the link to the individual listing created above. */
+          // var link = listing.appendChild(document.createElement('a'));
+          // link.href = '#';
+          // link.className = 'title';
+          // link.id = 'link-' + prop.uid;
+          // link.innerHTML = prop.address;
+          
+          
+          var listing__info = listing.appendChild(document.createElement('div'));
+          listing__info.className = 'listing__info';
+
+          // # listing__info start
+          
+          var listing__infoTop = listing__info.appendChild(document.createElement('div'));
+          listing__infoTop.className = 'listing__infoTop'
 
           // * listing__infoTop start
-            var location = listing__infoTop.appendChild(document.createElement('p'))
-            location.innerHTML = `${prop.country} | ${prop.state} | ${prop.city}`
+          var location = listing__infoTop.appendChild(document.createElement('p'))
+          location.innerHTML = `${prop.country} | ${prop.state} | ${prop.city}`
 
-            // var title = listing__infoTop.appendChild(document.createElement('h3'))
-            // title.innerHTML = prop.address
+          // var title = listing__infoTop.appendChild(document.createElement('h3'))
+          // title.innerHTML = prop.address
 
-            /* Add the link to the individual listing created above. */
-            var link = listing__infoTop.appendChild(document.createElement('h4'));
-            // link.href = '';
-            link.className = 'title';
-            link.id = 'link-' + prop.uid;
-            link.innerHTML = prop.address;
+          /* Add the link to the individual listing created above. */
+          var link = listing__infoTop.appendChild(document.createElement('h4'));
+          // link.href = '';
+          link.className = 'title';
+          link.id = 'link-' + prop.uid;
+          link.innerHTML = prop.address;
 
-            var underscope = listing__infoTop.appendChild(document.createElement('p'))
-            underscope.innerHTML = '_____'
-            
-            var description = listing__infoTop.appendChild(document.createElement('p'))
-            description.innerHTML = `${prop.description} . ${prop.totalVehicles} space for vehicle . User ${prop.fullName} . Mobile ${prop.mobile}`
+          var underscope = listing__infoTop.appendChild(document.createElement('p'))
+          underscope.innerHTML = '_____'
+          
+          var description = listing__infoTop.appendChild(document.createElement('p'))
+          description.innerHTML = `${prop.description} . ${prop.totalVehicles} space for vehicle . User ${prop.fullName} . Mobile ${prop.mobile}`
           // * listing__infoTop end
 
-          
+            
           var listing__infoBottom = listing__info.appendChild(document.createElement('div'));
           listing__infoBottom.className = 'listing__infoBottom'
 
           // ** listing__infoBottom start
-            var stars = listing__infoBottom.appendChild(document.createElement('div'));
-            stars.className = 'listing_stars'
+          var stars = listing__infoBottom.appendChild(document.createElement('div'));
+          stars.className = 'listing_stars'
 
-              var stars_p = stars.appendChild(document.createElement('p'))
-              stars_p.innerHTML = '4.3'
+          var stars_p = stars.appendChild(document.createElement('p'))
+          stars_p.innerHTML = '4.3'
 
-            var price = listing__infoBottom.appendChild(document.createElement('div'));
-            stars.className = 'listing_price'
+          var price = listing__infoBottom.appendChild(document.createElement('div'));
+          stars.className = 'listing_price'
 
-              var price_h2 = price.appendChild(document.createElement('h2'))
-              price_h2.innerHTML = `₹${prop.fees} / hour`
+          var price_h2 = price.appendChild(document.createElement('h2'))
+          price_h2.innerHTML = `₹${prop.fees} / hour`
           // ** listing__infoBottom end
 
-        // # listing__info end
+          // # listing__info end
 
-        /**
-        * Listen to the element and when it is clicked, do four things:
-        * 1. Update the `currentFeature` to the store associated with the clicked link
-        * 2. Fly to the point
-        * 3. Close all other popups and display popup for clicked store
-        * 4. Highlight listing in suidebar (and remove highlight for all other listings)
-        **/
+          /**
+          * Listen to the element and when it is clicked, do four things:
+          * 1. Update the `currentFeature` to the store associated with the clicked link
+          * 2. Fly to the point
+          * 3. Close all other popups and display popup for clicked store
+          * 4. Highlight listing in suidebar (and remove highlight for all other listings)
+          **/
 
-        // link.addEventListener('click', function (e) {
-        //   for (var i = 0; i < geojson.features.length; i++) {
-        //     if (this.id === 'link-' + geojson.features[i].properties.uid) {
-        //       var clickedListing = geojson.features[i];
-        //       flyToStore(clickedListing);
-        //       createPopUp(clickedListing);
-        //     }
-        //   }
-        //   var activeItem = document.getElementsByClassName('active');
-        //   if (activeItem[0]) {
-        //     activeItem[0].classList.remove('active');
-        //   }
-        //   this.parentNode.parentNode.parentNode.classList.add('active');
-        // });
+          // link.addEventListener('click', function (e) {
+          //   for (var i = 0; i < geojson.features.length; i++) {
+          //     if (this.id === 'link-' + geojson.features[i].properties.uid) {
+          //       var clickedListing = geojson.features[i];
+          //       flyToStore(clickedListing);
+          //       createPopUp(clickedListing);
+          //     }
+          //   }
+          //   var activeItem = document.getElementsByClassName('active');
+          //   if (activeItem[0]) {
+          //     activeItem[0].classList.remove('active');
+          //   }
+          //   this.parentNode.parentNode.parentNode.classList.add('active');
+          // });
 
-        listing.addEventListener('mouseover', function (e) {
-          for (var i = 0; i < geojson.features.length; i++) {
-            if (this.id === 'listing-' + geojson.features[i].properties.uid) {
-              var clickedListing = geojson.features[i];
-              flyToStore(clickedListing);
-              createPopUp(clickedListing);
+          listing.addEventListener('mouseover', function (e) {
+            for (var i = 0; i < geojson.features.length; i++) {
+              if (this.id === 'listing-' + geojson.features[i].properties.uid) {
+                var clickedListing = geojson.features[i];
+                flyToStore(clickedListing);
+                createPopUp(clickedListing);
+              }
             }
-          }
-          var activeItem = document.getElementsByClassName('active');
-          if (activeItem[0]) {
-            activeItem[0].classList.remove('active');
-          }
-          this.classList.add('active');
-        });
-
-        // move to booking when user click on sidebar-listing-record
-        listing.addEventListener('click',function(e){
-          for (var i = 0; i < geojson.features.length; i++) {
-            if (this.id === 'listing-' + geojson.features[i].properties.uid) {
-              var clickedListing = geojson.features[i];
-              history.push({
-                pathname: '/booking',
-                hostingInfo: clickedListing
-              })
+            var activeItem = document.getElementsByClassName('active');
+            if (activeItem[0]) {
+              activeItem[0].classList.remove('active');
             }
-          }
-        })
+            this.classList.add('active');
+          });
+
+          // move to booking when user click on sidebar-listing-record
+          listing.addEventListener('click',function(e){
+            for (var i = 0; i < geojson.features.length; i++) {
+              if (this.id === 'listing-' + geojson.features[i].properties.uid) {
+                var clickedListing = geojson.features[i];
+                history.push({
+                  pathname: '/booking',
+                  hostingInfo: clickedListing
+                })
+              }
+            }
+          })
+
+        }
+
 
 
       });
